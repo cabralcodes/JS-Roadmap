@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Roadmap ENEM — 700 a 800+</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;--surf:#0e0e1a;--card:#121220;
+  --g:#00e87a;--o:#ff7043;--p:#a78bfa;--b:#38bdf8;--r:#f87171;--y:#fbbf24;
+  --text:#e2e2f0;--muted:#5c5c78;--border:#1e1e32;
+  --mono:'JetBrains Mono',monospace;--sans:'Bricolage Grotesque',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(7,7,15,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 2rem;display:flex;align-items:center;gap:1rem;overflow-x:auto}
+.nav-logo{font-family:var(--mono);font-size:.68rem;color:var(--y);white-space:nowrap;margin-right:auto}
+.nl{font-family:var(--mono);font-size:.56rem;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nl:hover{color:var(--y)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 2rem 4rem;max-width:1120px;margin:0 auto}
+.hero-eye{font-family:var(--mono);font-size:.65rem;color:var(--y);letter-spacing:.3em;margin-bottom:1.4rem}
+.hero h1{font-size:clamp(2.6rem,7vw,6rem);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:1.4rem}
+.hero h1 em{font-style:normal;color:var(--y)}
+.hero h1 .go{color:var(--g)}
+.hero-desc{font-size:1rem;color:var(--muted);max-width:560px;margin-bottom:2rem}
+.metas{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;max-width:440px;margin-bottom:2rem}
+.meta{background:var(--card);padding:1rem;text-align:center}
+.meta-n{font-family:var(--mono);font-size:1.8rem;font-weight:700}
+.meta-l{font-family:var(--mono);font-size:.5rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:.1rem}
+.meta:nth-child(1) .meta-n{color:var(--b)}
+.meta:nth-child(2) .meta-n{color:var(--g)}
+.meta:nth-child(3) .meta-n{color:var(--y)}
+
+.wrap{max-width:1120px;margin:0 auto;padding:4rem 2rem}
+.eye{font-family:var(--mono);font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.35rem}
+.sec-title{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:.4rem}
+.sec-sub{color:var(--muted);font-size:.88rem;max-width:640px;margin-bottom:2rem}
+hr.div{border:none;height:1px;background:var(--border);max-width:1120px;margin:0 auto}
+
+/* MATÉRIA CARD */
+.mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.mat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s}
+.mat-card:hover{border-color:var(--y)}
+.mat-head{padding:1.2rem 1.5rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem}
+.mat-icon{font-size:1.5rem;margin-bottom:.3rem}
+.mat-title{font-size:1rem;font-weight:700}
+.mat-peso{font-family:var(--mono);font-size:.58rem;color:var(--muted);margin-top:.15rem}
+.badge{font-family:var(--mono);font-size:.56rem;font-weight:700;padding:.22rem .65rem;border-radius:3px;white-space:nowrap}
+.badge.y{background:rgba(251,191,36,.13);color:var(--y);border:1px solid rgba(251,191,36,.28)}
+.badge.g{background:rgba(0,232,122,.13);color:var(--g);border:1px solid rgba(0,232,122,.28)}
+.badge.b{background:rgba(56,189,248,.13);color:var(--b);border:1px solid rgba(56,189,248,.28)}
+.badge.p{background:rgba(167,139,250,.13);color:var(--p);border:1px solid rgba(167,139,250,.28)}
+.badge.r{background:rgba(248,113,113,.13);color:var(--r);border:1px solid rgba(248,113,113,.28)}
+.badge.o{background:rgba(255,112,67,.13);color:var(--o);border:1px solid rgba(255,112,67,.28)}
+
+/* ACCORDION */
+.acc-item{margin-bottom:.5rem;border:1px solid var(--border);border-radius:7px;overflow:hidden}
+.acc-btn{width:100%;background:var(--surf);border:none;cursor:pointer;padding:.6rem .85rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem;text-align:left;transition:background .2s}
+.acc-btn:hover{background:rgba(255,255,255,.03)}
+.acc-btn.open{background:rgba(251,191,36,.05)}
+.acc-name{font-size:.8rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem}
+.acc-name::before{content:'▸';font-size:.58rem;color:var(--y);flex-shrink:0;transition:transform .25s}
+.acc-btn.open .acc-name::before{transform:rotate(90deg)}
+.acc-arrow{font-family:var(--mono);font-size:.58rem;color:var(--muted);transition:transform .25s}
+.acc-btn.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:.65rem .85rem .85rem;background:var(--card);border-top:1px solid var(--border)}
+.acc-body.open{display:block}
+.acc-explain{font-size:.79rem;color:var(--text);line-height:1.65;margin-bottom:.65rem;padding:.55rem .75rem;background:var(--surf);border-left:2px solid var(--y);border-radius:0 4px 4px 0}
+.exs-lbl{font-family:var(--mono);font-size:.53rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem}
+.exs{display:flex;flex-direction:column;gap:.26rem}
+.ex{font-size:.74rem;color:var(--muted);padding-left:1.2rem;position:relative;line-height:1.45}
+.ex::before{content:attr(data-n);position:absolute;left:0;font-family:var(--mono);font-size:.58rem;color:var(--o);font-weight:700}
+.vid-rec{margin-top:.6rem;padding:.55rem .75rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0}
+.vid-rec-lbl{font-family:var(--mono);font-size:.52rem;color:var(--r);letter-spacing:.14em;margin-bottom:.25rem}
+.vid-link{font-size:.74rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+.vid-link:hover{color:var(--r)}
+
+.mat-body{padding:1.1rem 1.5rem 1.4rem}
+.mat-body-lbl{font-family:var(--mono);font-size:.54rem;color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem}
+.res-list{display:flex;flex-direction:column;gap:.45rem}
+.res-item{font-size:.76rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.45}
+.res-item::before{content:'→';position:absolute;left:0;font-family:var(--mono);font-size:.6rem;color:var(--y)}
+.res-item a{color:var(--b);text-decoration:none}
+.res-item a:hover{text-decoration:underline}
+
+/* REDAÇÃO */
+.red-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.1rem}
+.red-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem}
+.red-card h4{font-size:.9rem;font-weight:700;margin-bottom:.35rem}
+.red-card p{font-size:.77rem;color:var(--muted);line-height:1.5;margin-bottom:.65rem}
+.red-nota{font-family:var(--mono);font-size:.7rem;padding:.25rem .65rem;border-radius:4px;display:inline-block;margin-bottom:.5rem}
+.red-nota.y{background:rgba(251,191,36,.13);color:var(--y)}
+.red-nota.g{background:rgba(0,232,122,.13);color:var(--g)}
+.links-row{display:flex;gap:.4rem;flex-wrap:wrap}
+.lnk{font-family:var(--mono);font-size:.58rem;font-weight:700;padding:.22rem .55rem;border-radius:3px;text-decoration:none;transition:opacity .2s}
+.lnk:hover{opacity:.75}
+.lnk.free{background:rgba(0,232,122,.12);color:var(--g);border:1px solid rgba(0,232,122,.25)}
+.lnk.site{background:rgba(56,189,248,.12);color:var(--b);border:1px solid rgba(56,189,248,.25)}
+.lnk.yt{background:rgba(248,113,113,.12);color:var(--r);border:1px solid rgba(248,113,113,.25)}
+
+/* PLANO ANUAL */
+.plano-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.plano-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.3rem}
+.plano-ano{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.35rem}
+.plano-card h4{font-size:.88rem;font-weight:700;margin-bottom:.35rem}
+.plano-card ul{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.plano-card ul li{font-size:.76rem;color:var(--muted);padding-left:1rem;position:relative;line-height:1.45}
+.plano-card ul li::before{content:'▸';position:absolute;left:0;font-family:var(--mono);font-size:.58rem;color:var(--y)}
+
+/* DICAS */
+.dica-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:.95rem}
+.dica-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.15rem}
+.dica-n{font-family:var(--mono);font-size:.56rem;color:var(--y);letter-spacing:.14em;margin-bottom:.38rem}
+.dica-card h4{font-size:.87rem;font-weight:700;margin-bottom:.28rem}
+.dica-card p{font-size:.74rem;color:var(--muted);line-height:1.5}
+
+/* IBOX */
+.ibox{border-radius:10px;padding:.95rem 1.3rem;font-size:.79rem;color:var(--muted);margin-top:1.3rem;line-height:1.6;border:1px dashed rgba(251,191,36,.22);background:rgba(251,191,36,.03)}
+.ibox strong{color:var(--y)}
+.ibox.g{border-color:rgba(0,232,122,.22);background:rgba(0,232,122,.03)}
+.ibox.g strong{color:var(--g)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.hero>*{animation:fadeUp .5s ease both}
+.hero-eye{animation-delay:.1s}.hero h1{animation-delay:.2s}.hero-desc{animation-delay:.3s}.metas{animation-delay:.4s}
+.footer{text-align:center;padding:3rem 2rem;font-family:var(--mono);font-size:.68rem;color:var(--muted)}
+.footer span{color:var(--y)}
+.slbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;margin:2rem 0 1rem}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">// ROADMAP ENEM</span>
+  <a class="nl" href="#plano">Plano Anual</a>
+  <a class="nl" href="#matematica">Matemática</a>
+  <a class="nl" href="#linguagens">Linguagens</a>
+  <a class="nl" href="#redacao">Redação</a>
+  <a class="nl" href="#humanas">Humanas</a>
+  <a class="nl" href="#natureza">Naturezas</a>
+  <a class="nl" href="#sites">Sites</a>
+  <a class="nl" href="#dicas">Dicas</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eye">// Seu plano completo para o ENEM · 700 → 750 → 800+</div>
+  <h1>Roadmap<br><em>ENEM</em><br><span class="go">700 a 800+</span></h1>
+  <p class="hero-desc">Plano anual progressivo com conteúdos, vídeos, exercícios e os melhores sites gratuitos — inclusive para corrigir redação. Cada matéria explicada do zero com o que cai de verdade.</p>
+  <div class="metas">
+    <div class="meta"><div class="meta-n">700</div><div class="meta-l">Este ano</div></div>
+    <div class="meta"><div class="meta-n">750</div><div class="meta-l">Próximo ano</div></div>
+    <div class="meta"><div class="meta-n">800+</div><div class="meta-l">Ano final</div></div>
+  </div>
+  <div class="ibox g" style="max-width:560px;margin-top:0">
+    <strong>Como usar este roadmap:</strong> Cada matéria tem os tópicos que mais caem, exercícios práticos e vídeos gratuitos. Abra os tópicos clicando neles. Siga o Plano Anual para não estudar tudo ao mesmo tempo.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- PLANO ANUAL -->
+<div class="wrap" id="plano">
+  <div class="eye" style="color:var(--y)">// 01 — ESTRATÉGIA</div>
+  <h2 class="sec-title">Plano Anual Progressivo</h2>
+  <p class="sec-sub">Não tente estudar tudo ao mesmo tempo. Siga a progressão e você vai chegar lá.</p>
+
+  <div class="plano-grid">
+    <div class="plano-card" style="border-color:rgba(56,189,248,.3)">
+      <div class="plano-ano" style="color:var(--b)">// ESTE ANO · META 700</div>
+      <h4>Consolidar as bases</h4>
+      <ul>
+        <li>Redação: domine a estrutura dissertativa. Meta 640+ na redação</li>
+        <li>Matemática: % , regra de 3, geometria plana, funções básicas</li>
+        <li>Português: interpretação de texto todo dia (isso vale muito)</li>
+        <li>História e Geografia: temas contemporâneos e geopolítica</li>
+        <li>Biologia e Química: tópicos mais cobrados (genética, mol)</li>
+        <li>Fazer provas antigas (2019, 2020, 2021) para se acostumar</li>
+      </ul>
+    </div>
+    <div class="plano-card" style="border-color:rgba(0,232,122,.3)">
+      <div class="plano-ano" style="color:var(--g)">// PRÓXIMO ANO · META 750</div>
+      <h4>Aprofundar e expandir</h4>
+      <ul>
+        <li>Redação: trabalhe as 5 competências com profundidade. Meta 720+</li>
+        <li>Matemática: progressões, probabilidade, estatística, trigonometria</li>
+        <li>Física: mecânica, eletricidade, óptica — os mais cobrados</li>
+        <li>Filosofia e Sociologia: pensadores e temas sociais</li>
+        <li>Simulados completos toda semana (cronometrado)</li>
+        <li>Análise de erros: entenda POR QUE errou, não só o gabarito</li>
+      </ul>
+    </div>
+    <div class="plano-card" style="border-color:rgba(251,191,36,.3)">
+      <div class="plano-ano" style="color:var(--y)">// ANO FINAL · META 800+</div>
+      <h4>Afinação e performance</h4>
+      <ul>
+        <li>Redação: meta 800+. Escreva 2 por semana e corrija</li>
+        <li>Revisão dos pontos fracos identificados nos simulados</li>
+        <li>Matemática avançada: geometria espacial, análise combinatória</li>
+        <li>Provas dos últimos 3 anos completas com revisão detalhada</li>
+        <li>Gestão de tempo: treinar 45 questões em 5h cronometradas</li>
+        <li>Saúde, sono e rotina: cuidar do físico é parte da estratégia</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ibox" style="margin-top:1.5rem">
+    <strong>Quanto estudar por dia?</strong> Você já tem a rotina de 13h30 às 17h. Separe 2 blocos de escola nessa rotina para ENEM: 1 bloco de matéria teórica + 1 bloco de exercícios ou redação. Não é sobre quantidade — é sobre qualidade e consistência.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- MATEMÁTICA -->
+<div class="wrap" id="matematica">
+  <div class="eye" style="color:var(--b)">// 02 — MATEMÁTICA E SUAS TECNOLOGIAS</div>
+  <h2 class="sec-title">Matemática</h2>
+  <p class="sec-sub">A área que mais amedronta — mas é a mais previsível. Os mesmos tópicos caem todo ano.</p>
+
+  <div class="mat-grid">
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">📐</div><div class="mat-title">Geometria Plana e Espacial</div><div class="mat-peso">⚡ Cai todo ano — Alta prioridade</div></div>
+        <span class="badge b">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Área e perímetro de figuras planas</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Figuras planas são formas 2D: quadrado, retângulo, triângulo, círculo, trapézio. Você precisa memorizar as fórmulas de área e perímetro de cada uma. O ENEM adora colocar essas fórmulas em contexto de problemas reais (área de terreno, pintura de parede, cerca de jardim).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Uma sala tem 6m × 4m. Quantos metros quadrados de piso serão necessários?</div>
+              <div class="ex" data-n="2.">Uma pizza tem diâmetro de 40cm. Qual a área da pizza? (use π=3,14)</div>
+              <div class="ex" data-n="3.">Calcule a área de um triângulo com base 8cm e altura 5cm.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=nYdHKDRgPQU" target="_blank"><span>▶</span> Geometria Plana para o ENEM (Professor Ferretto)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Trigonometria (seno, cosseno, tangente)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Trigonometria relaciona os ângulos de um triângulo retângulo com seus lados. O ENEM cobra muito em contextos práticos: altura de prédio, distância entre pontos, inclinação de rampas. Memorize: seno = oposto/hipotenusa, cosseno = adjacente/hipotenusa, tangente = oposto/adjacente. Macete: SOH-CAH-TOA.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Um poste de 10m projeta sombra de 10m no chão. Qual é o ângulo de elevação do sol?</div>
+              <div class="ex" data-n="2.">Uma rampa de acessibilidade tem 3m de comprimento e faz 30° com o chão. Qual a altura?</div>
+              <div class="ex" data-n="3.">Calcule os ângulos e lados de um triângulo 30-60-90 com hipotenusa = 10.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=XJBOwHfDaGs" target="_blank"><span>▶</span> Trigonometria para o ENEM do zero (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Volumes (cubo, cilindro, cone, esfera)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Geometria espacial trabalha com sólidos 3D. O ENEM adora problemas de caixa d'água, embalagem, caixas. Fórmulas essenciais: cubo = a³, paralelepípedo = c×l×a, cilindro = π×r²×h, cone = (π×r²×h)/3, esfera = (4/3)×π×r³.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Uma caixa d'água cilíndrica tem raio 1m e altura 2m. Quantos litros cabe? (1m³ = 1000L)</div>
+              <div class="ex" data-n="2.">Uma bola de futebol tem raio 11cm. Qual seu volume? (π=3,14)</div>
+              <div class="ex" data-n="3.">Uma caixa retangular tem 50cm × 30cm × 20cm. Quantos cubos de 10cm cabem dentro?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=j7dbbAp_g50" target="_blank"><span>▶</span> Geometria Espacial ENEM (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.youtube.com/@ProfessorFerretto" target="_blank">YouTube: Professor Ferretto</a> — melhor canal de matemática para ENEM</div>
+          <div class="res-item"><a href="https://www.stoodi.com.br" target="_blank">Stoodi.com.br</a> — exercícios e videoaulas gratuitas</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">📊</div><div class="mat-title">Funções e Gráficos</div><div class="mat-peso">⚡ Cai todo ano — Alta prioridade</div></div>
+        <span class="badge b">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Função do 1º grau (linear)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">f(x) = ax + b. É uma reta no plano cartesiano. 'a' é o coeficiente angular (inclinação) e 'b' é o coeficiente linear (onde corta o eixo Y). Muito cobrado em problemas de custo, lucro, velocidade constante e variações lineares.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Um táxi cobra R$4 de bandeirada + R$2 por km. Escreva a função e calcule o preço de 15km.</div>
+              <div class="ex" data-n="2.">Encontre os zeros (raízes) de f(x) = 3x - 9. Esboce o gráfico.</div>
+              <div class="ex" data-n="3.">Duas funções se cruzam: f(x) = 2x + 1 e g(x) = -x + 7. Qual o ponto de interseção?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=1UPmQMklWqo" target="_blank"><span>▶</span> Função do 1º Grau para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Função do 2º grau (quadrática)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">f(x) = ax² + bx + c. Forma uma parábola. Para achar as raízes: fórmula de Bhaskara: x = (-b ± √Δ) / 2a, onde Δ = b² - 4ac. O vértice é o ponto máximo ou mínimo da parábola: xv = -b/2a. Muito cobrado em problemas de arremesso, lucro máximo, dimensão otimizada.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Resolva x² - 5x + 6 = 0 pela Bhaskara. Quantas raízes reais existem?</div>
+              <div class="ex" data-n="2.">Uma bola é lançada com altura h(t) = -5t² + 20t + 2. Qual a altura máxima e quando ocorre?</div>
+              <div class="ex" data-n="3.">Uma empresa tem lucro L(x) = -x² + 100x - 1500, onde x é a quantidade vendida. Qual o lucro máximo?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=9YYkXeXYxzE" target="_blank"><span>▶</span> Função do 2º Grau completa (Ferretto)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Progressão Aritmética (PA) e Geométrica (PG)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>PA:</strong> diferença constante entre os termos. an = a1 + (n-1)d. Soma: Sn = n(a1+an)/2. <strong>PG:</strong> razão constante entre os termos. an = a1 × q^(n-1). Soma: Sn = a1(q^n - 1)/(q-1). O ENEM cobra em contextos de juros simples (PA), juros compostos (PG) e crescimento populacional.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">PA com a1=3, d=4. Qual o 10º termo? Qual a soma dos 10 primeiros?</div>
+              <div class="ex" data-n="2.">PG com a1=2, q=3. Qual o 5º termo? Qual a soma dos 5 primeiros?</div>
+              <div class="ex" data-n="3.">Uma bactéria dobra a cada hora. Começando com 100 bactérias, quantas haverá em 8 horas?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=EI0BRb3j2Xg" target="_blank"><span>▶</span> PA e PG para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.youtube.com/@mesalva" target="_blank">Me Salva! no YouTube</a> — videoaulas claras e organizadas por tópico</div>
+          <div class="res-item"><a href="https://www.khanacademy.org/math" target="_blank">Khan Academy em PT</a> — exercícios infinitos e gratuitos com correção automática</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🎲</div><div class="mat-title">Probabilidade, Estatística e Combinatória</div><div class="mat-peso">⚡ Muito cobrado — Média/Alta prioridade</div></div>
+        <span class="badge b">IMPORTANTE</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Probabilidade</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Probabilidade = casos favoráveis / casos possíveis. Sempre um número entre 0 e 1 (ou 0% a 100%). Para eventos independentes: P(A e B) = P(A) × P(B). Para eventos mutuamente exclusivos: P(A ou B) = P(A) + P(B). O ENEM adora contextos com dados, cartas, urnas e sorteios.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Uma urna tem 3 bolas vermelhas e 7 azuis. Qual a probabilidade de tirar uma vermelha?</div>
+              <div class="ex" data-n="2.">Ao lançar um dado e uma moeda, qual a probabilidade de sair 6 e cara?</div>
+              <div class="ex" data-n="3.">Um casal quer ter 3 filhos. Qual a probabilidade de todos serem meninas?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=2VFSVHFRpjY" target="_blank"><span>▶</span> Probabilidade para o ENEM do zero (Ferretto)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Estatística (média, mediana, moda)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Média:</strong> soma de todos os valores ÷ quantidade. <strong>Mediana:</strong> valor do meio quando ordenado. <strong>Moda:</strong> valor que aparece mais vezes. O ENEM sempre apresenta gráficos (barras, setores, linha) e pede para interpretar os dados ou calcular essas medidas.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Notas: 5, 7, 8, 6, 9, 7, 10. Calcule média, mediana e moda.</div>
+              <div class="ex" data-n="2.">Um gráfico mostra vendas mensais. Interprete e calcule a média anual.</div>
+              <div class="ex" data-n="3.">A média de 5 números é 8. Quatro deles são: 6, 9, 7, 10. Qual é o quinto?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=h2UrCdmYvRQ" target="_blank"><span>▶</span> Estatística para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Porcentagem e Juros</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Porcentagem é uma das habilidades mais cobradas no ENEM e na vida real. Juros simples: J = C × i × t. Juros compostos: M = C × (1+i)^t. Desconto, acréscimo, aumento percentual, variação percentual — todos caem toda prova.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Um produto custa R$200 e teve desconto de 15%. Qual o novo preço?</div>
+              <div class="ex" data-n="2.">R$1000 aplicados a juros compostos de 5% ao mês por 3 meses. Qual o montante?</div>
+              <div class="ex" data-n="3.">Um salário aumentou de R$2000 para R$2300. Qual foi o aumento percentual?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=tpV1TLB_bsE" target="_blank"><span>▶</span> Porcentagem e Juros ENEM (Ferretto)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- LINGUAGENS -->
+<div class="wrap" id="linguagens">
+  <div class="eye" style="color:var(--g)">// 03 — LINGUAGENS, CÓDIGOS E SUAS TECNOLOGIAS</div>
+  <h2 class="sec-title">Português &amp; Linguagens</h2>
+  <p class="sec-sub">Interpretação de texto é a habilidade que mais vale pontos no ENEM. Treine isso todo dia.</p>
+
+  <div class="mat-grid">
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">📖</div><div class="mat-title">Interpretação de Texto</div><div class="mat-peso">⚡ A habilidade mais cobrada do ENEM inteiro</div></div>
+        <span class="badge g">PRIORIDADE #1</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Identificar ideia central e tese</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">A tese é a ideia principal que o autor defende. No ENEM, as questões sempre pedem "de acordo com o texto" ou "o autor defende que...". A resposta ESTÁ no texto — você não precisa saber o assunto de antemão. Leia com atenção ao que está escrito, não ao que você acha.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Leia qualquer artigo de jornal (Folha, G1) e escreva em 1 frase a tese do autor.</div>
+              <div class="ex" data-n="2.">Resolva 5 questões de interpretação de provas antigas do ENEM (2018-2022).</div>
+              <div class="ex" data-n="3.">Para cada questão que errar: identifique por que a resposta certa está no texto.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=8bWL2Rc5U4c" target="_blank"><span>▶</span> Como interpretar texto no ENEM (Prof. Noslen)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Figuras de linguagem</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">As mais cobradas: <strong>Metáfora</strong> (comparação sem "como": "ele é uma rocha"), <strong>Metonímia</strong> (parte pelo todo: "li Machado de Assis"), <strong>Hipérbole</strong> (exagero: "estou morrendo de fome"), <strong>Ironia</strong> (diz o contrário do que pensa), <strong>Personificação</strong> (atribui vida a algo inanimado), <strong>Eufemismo</strong> (suaviza algo negativo).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Identifique a figura de linguagem: "O Brasil precisa acordar para a realidade."</div>
+              <div class="ex" data-n="2.">Crie 1 exemplo próprio de cada figura: metáfora, hipérbole e ironia.</div>
+              <div class="ex" data-n="3.">Resolva 10 questões de figuras de linguagem do ENEM no QuestõesDia.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=iSxBbGkMIdc" target="_blank"><span>▶</span> Figuras de Linguagem para o ENEM (Redação nota 1000)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Gramática contextualizada</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">O ENEM não cobra gramática decorada — cobra gramática no contexto de um texto. Tópicos mais cobrados: crase, concordância verbal e nominal, colocação pronominal, pontuação, regência verbal. O truque: aprenda as regras identificando os erros nos textos.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Pratique crase: em quais casos coloca-se crase antes de "a"? Faça 10 exercícios.</div>
+              <div class="ex" data-n="2.">Concordância: corrija 5 frases com erro de concordância verbal ou nominal.</div>
+              <div class="ex" data-n="3.">Leia um editorial de jornal e identifique 3 recursos linguísticos usados pelo autor.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=fFq8u0MoqlE" target="_blank"><span>▶</span> Gramática ENEM — o que realmente cai (Prof. Noslen)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.youtube.com/@ProfNoslen" target="_blank">Prof. Noslen no YouTube</a> — o melhor canal de português para ENEM. Assista todo dia.</div>
+          <div class="res-item"><a href="https://www.portugues.com.br" target="_blank">portugues.com.br</a> — exercícios de gramática gratuitos com gabarito.</div>
+          <div class="res-item">Leia 1 artigo de opinião por dia (Folha, Nexo Jornal, G1).</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🎨</div><div class="mat-title">Literatura e Arte</div><div class="mat-peso">Cai regularmente — Média prioridade</div></div>
+        <span class="badge g">IMPORTANTE</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Escolas literárias brasileiras</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Cada escola tem características específicas. As mais cobradas: <strong>Romantismo</strong> (sentimento, idealismo, nacionalismo), <strong>Realismo/Naturalismo</strong> (crítica social, objetividade), <strong>Parnasianismo</strong> (forma perfeita, "arte pela arte"), <strong>Modernismo</strong> (ruptura, linguagem popular, 3 fases). Foque nas características e nos autores principais de cada uma.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Leia um trecho de Dom Casmurro (Machado) e identifique características realistas.</div>
+              <div class="ex" data-n="2.">Identifique a escola literária de 3 trechos diferentes. Justifique pela linguagem.</div>
+              <div class="ex" data-n="3.">Monte um quadro comparativo das 5 principais escolas literárias.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=Df6RITOBx3Q" target="_blank"><span>▶</span> Escolas Literárias ENEM — resumão (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Análise de imagens, charges e tiras</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">O ENEM SEMPRE traz questões com imagens, charges e tirinhas — especialmente nas primeiras questões de linguagens. A análise não é sobre estética, mas sobre o <strong>significado e contexto</strong>: o que a imagem critica? Qual o recurso usado para criar humor ou crítica? Qual a relação com o texto?</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Analise 5 charges do Angeli ou Laerte e descreva: quem são os personagens e qual a crítica.</div>
+              <div class="ex" data-n="2.">Resolva 10 questões de análise de imagem de provas ENEM anteriores.</div>
+              <div class="ex" data-n="3.">Encontre uma charge sobre um tema atual e escreva 3 linhas interpretando-a.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=LxvGs5DkqvA" target="_blank"><span>▶</span> Como analisar charges no ENEM (Prof. Noslen)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.culturagenial.com/obras-literarias-enem/" target="_blank">culturagenial.com</a> — resumos das obras literárias mais cobradas no ENEM.</div>
+          <div class="res-item"><a href="https://www.youtube.com/@descomplica" target="_blank">Descomplica no YouTube</a> — resumos rápidos de literatura.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- REDAÇÃO -->
+<div class="wrap" id="redacao">
+  <div class="eye" style="color:var(--y)">// 04 — REDAÇÃO</div>
+  <h2 class="sec-title">Redação — A Nota que Muda Tudo</h2>
+  <p class="sec-sub">A redação vale 1000 pontos — o mesmo que todas as outras áreas juntas. Invista muito aqui.</p>
+
+  <!-- ESTRUTURA -->
+  <div style="background:var(--card);border:1px solid rgba(251,191,36,.3);border-radius:14px;padding:1.6rem 1.7rem;margin-bottom:1.5rem">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--y);letter-spacing:.2em;margin-bottom:1rem">// AS 5 COMPETÊNCIAS — O QUE A BANCA AVALIA</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem">
+      <div style="background:var(--surf);border-left:2px solid var(--y);border-radius:0 8px 8px 0;padding:.9rem 1.1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--y);margin-bottom:.3rem">COMPETÊNCIA 1</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.25rem">Domínio da norma culta</div>
+        <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Ortografia, concordância, pontuação, coesão. Evite erros gramaticais. Leia bastante para internalizar a norma culta.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--o);border-radius:0 8px 8px 0;padding:.9rem 1.1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--o);margin-bottom:.3rem">COMPETÊNCIA 2</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.25rem">Compreender a proposta</div>
+        <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Entender o tema e não fugir dele. Muita gente zera por fuga de tema. Leia a proposta com calma antes de começar.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--g);border-radius:0 8px 8px 0;padding:.9rem 1.1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--g);margin-bottom:.3rem">COMPETÊNCIA 3</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.25rem">Seleção de argumentos</div>
+        <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Usar dados, fatos, citações e exemplos concretos para sustentar a tese. Evite argumentos vagos como "desde os primórdios...".</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--b);border-radius:0 8px 8px 0;padding:.9rem 1.1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--b);margin-bottom:.3rem">COMPETÊNCIA 4</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.25rem">Coesão e coerência</div>
+        <div style="font-size:.74rem;color:var(--muted);line-height:1.5">Conectar as ideias com conectivos (portanto, entretanto, ademais, outrossim). Cada parágrafo deve ter ligação com o anterior.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--p);border-radius:0 8px 8px 0;padding:.9rem 1.1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--p);margin-bottom:.3rem">COMPETÊNCIA 5</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.25rem">Proposta de intervenção</div>
+        <div style="font-size:.84rem;font-weight:700;margin-bottom:.15rem"></div>
+        <div style="font-size:.74rem;color:var(--muted);line-height:1.5">A conclusão deve propor UMA solução concreta com: agente, ação, modo/meio, efeito e detalhamento. É um dos critérios mais fáceis de acertar com treino.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTRUTURA DA REDAÇÃO -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.7rem;margin-bottom:1.5rem">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--y);letter-spacing:.2em;margin-bottom:1rem">// ESTRUTURA DOS 4 PARÁGRAFOS</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem">
+      <div style="background:var(--surf);border-radius:8px;padding:.9rem 1.1rem;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--y);margin-bottom:.3rem">§1 — INTRODUÇÃO (~7 linhas)</div>
+        <div style="font-size:.76rem;color:var(--muted);line-height:1.6">Contextualize o tema com um dado, citação ou afirmação. Apresente sua TESE (o que você vai defender) no final do parágrafo. Nunca copie os textos motivadores.</div>
+      </div>
+      <div style="background:var(--surf);border-radius:8px;padding:.9rem 1.1rem;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--o);margin-bottom:.3rem">§2 — 1º ARGUMENTO (~7 linhas)</div>
+        <div style="font-size:.76rem;color:var(--muted);line-height:1.6">Seu primeiro argumento. Use dados, pesquisas, citações de filósofos ou especialistas. Explique a causa ou o contexto histórico do problema.</div>
+      </div>
+      <div style="background:var(--surf);border-radius:8px;padding:.9rem 1.1rem;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--g);margin-bottom:.3rem">§3 — 2º ARGUMENTO (~7 linhas)</div>
+        <div style="font-size:.76rem;color:var(--muted);line-height:1.6">Segundo argumento, diferente do primeiro. Pode explorar as consequências do problema ou uma perspectiva diferente. Use exemplos concretos.</div>
+      </div>
+      <div style="background:var(--surf);border-radius:8px;padding:.9rem 1.1rem;border:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--p);margin-bottom:.3rem">§4 — CONCLUSÃO (~5 linhas)</div>
+        <div style="font-size:.76rem;color:var(--muted);line-height:1.6">Retome a tese. Apresente UMA proposta de intervenção completa: Quem faz? O quê? Como? Com que efeito? Ex: "O governo federal deve implementar X por meio de Y, a fim de Z."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SITES DE CORREÇÃO -->
+  <div style="font-family:var(--mono);font-size:.6rem;color:var(--y);letter-spacing:.2em;margin-bottom:1rem">// SITES GRATUITOS PARA CORRIGIR REDAÇÃO</div>
+  <div class="red-grid">
+    <div class="red-card" style="border-color:rgba(0,232,122,.3)">
+      <span class="red-nota g">MELHOR OPÇÃO GRATUITA</span>
+      <h4>📝 Redação Online — ENEM</h4>
+      <p>Plataforma brasileira focada em ENEM. Envie sua redação e receba correção baseada nas 5 competências com nota estimada e comentários.</p>
+      <div class="links-row"><a class="lnk site" href="https://www.redacaonline.com.br" target="_blank">🌐 redacaonline.com.br</a></div>
+    </div>
+    <div class="red-card">
+      <span class="red-nota y">GRATUITO COM CONTA</span>
+      <h4>📝 Descomplica — Correção de Redação</h4>
+      <p>Envie sua redação para correção por professores. Tem versão gratuita com correções mensais. Feedback detalhado por competência.</p>
+      <div class="links-row"><a class="lnk site" href="https://descomplica.com.br/redacao/" target="_blank">🌐 descomplica.com.br</a></div>
+    </div>
+    <div class="red-card">
+      <span class="red-nota y">GRATUITO</span>
+      <h4>📝 Guia do Estudante — Corretor</h4>
+      <p>Ferramenta gratuita do Guia do Estudante para analisar redações ENEM. Identifica problemas de coesão e sugere melhorias.</p>
+      <div class="links-row"><a class="lnk site" href="https://guiadoestudante.abril.com.br/enem/redacao/" target="_blank">🌐 guiadoestudante.com.br</a></div>
+    </div>
+    <div class="red-card">
+      <span class="red-nota y">GRATUITO</span>
+      <h4>📝 Redação Nota 1000 (YouTube)</h4>
+      <p>Canal do YouTube com correções ao vivo de redações, análise das competências e temas da atualidade. Essencial para entender os critérios.</p>
+      <div class="links-row"><a class="lnk yt" href="https://www.youtube.com/@RedacaoNota1000" target="_blank">▶ YouTube</a></div>
+    </div>
+    <div class="red-card">
+      <span class="red-nota y">GRATUITO</span>
+      <h4>📝 Estratégia Vestibulares</h4>
+      <p>Correção de redações com professores especializados. Tem temas semanais para treinar e banco de redações corrigidas para ler.</p>
+      <div class="links-row"><a class="lnk site" href="https://www.estrategiavestibulares.com.br/enem/redacao/" target="_blank">🌐 estrategiavestibulares.com.br</a></div>
+    </div>
+    <div class="red-card">
+      <span class="red-nota g">DICA DE OURO</span>
+      <h4>🤖 Claude (eu mesmo) para revisar</h4>
+      <p>Me mande sua redação aqui nessa conversa! Eu analiso as 5 competências, dou nota estimada, aponto problemas e sugiro melhorias detalhadas. Totalmente gratuito e disponível agora.</p>
+      <div class="links-row"><a class="lnk free" href="https://claude.ai" target="_blank">Usar Claude</a></div>
+    </div>
+  </div>
+
+  <div class="ibox" style="margin-top:1.5rem">
+    <strong>Rotina de redação:</strong> Escreva pelo menos 1 redação por semana. Use os sites acima para corrigir. Leia redações nota 1000 de provas anteriores no site do INEP. A habilidade de escrever bem desenvolve com prática — não tem atalho.
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- HUMANAS -->
+<div class="wrap" id="humanas">
+  <div class="eye" style="color:var(--o)">// 05 — CIÊNCIAS HUMANAS E SUAS TECNOLOGIAS</div>
+  <h2 class="sec-title">História, Geografia, Filosofia e Sociologia</h2>
+  <p class="sec-sub">Humanas é a área que mais cobra interpretação e atualidades. Leia jornal todo dia.</p>
+
+  <div class="mat-grid">
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🌍</div><div class="mat-title">História</div><div class="mat-peso">Cai bastante — Alta prioridade</div></div>
+        <span class="badge o">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Brasil Republicano (1889–hoje)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">A história do Brasil republicano é um dos temas mais cobrados. Pontos críticos: Proclamação da República (1889), Era Vargas (1930-1945 e 1950-1954), Ditadura Militar (1964-1985), Redemocratização e Constituição de 1988. O ENEM frequentemente conecta esses períodos com questões de cidadania, direitos e democracia.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Monte uma linha do tempo da República brasileira com os 5 momentos mais importantes.</div>
+              <div class="ex" data-n="2.">Compare a Ditadura Vargas com a Ditadura Militar: semelhanças e diferenças.</div>
+              <div class="ex" data-n="3.">O que foi a Constituição de 1988 e por que é chamada de "Constituição Cidadã"?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=Y_QLRQqGJ3Q" target="_blank"><span>▶</span> História do Brasil para o ENEM — resumão (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Primeira e Segunda Guerra Mundial</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">As guerras mundiais são pilares do ENEM. Causas, consequências e ligações com o Brasil. <strong>1ª GM:</strong> imperialismo, nacionalismo, assassinato de Franz Ferdinand, tratado de Versalhes (que gerou a 2ª GM). <strong>2ª GM:</strong> ascensão do nazifascismo, holocausto, bomba atômica, Guerra Fria como desdobramento.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Explique como o Tratado de Versalhes contribuiu para o surgimento do nazismo.</div>
+              <div class="ex" data-n="2.">O que foi o holocausto e como ele se relaciona com a criação da ONU?</div>
+              <div class="ex" data-n="3.">Como a 2ª GM transformou o mapa geopolítico mundial? Cite 3 consequências.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=IA5KxnCJIKM" target="_blank"><span>▶</span> Guerras Mundiais para o ENEM (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.youtube.com/@atualidadesenem" target="_blank">Atualidades ENEM no YouTube</a> — conecta história com notícias atuais.</div>
+          <div class="res-item"><a href="https://brasilescola.uol.com.br/historiab" target="_blank">Brasil Escola — História</a> — artigos completos sobre todos os temas.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🗺️</div><div class="mat-title">Geografia</div><div class="mat-peso">Muito cobrada — Alta prioridade</div></div>
+        <span class="badge o">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Geopolítica Mundial e Globalização</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Geopolítica no ENEM foca em: blocos econômicos (União Europeia, Mercosul, BRICS), conflitos regionais (Oriente Médio, Ucrânia), geopolítica da água, do petróleo e de alimentos. Globalização: fluxos econômicos, migração, desigualdade entre países ricos e pobres (Norte-Sul).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">O que são os BRICS e qual o papel do Brasil no grupo?</div>
+              <div class="ex" data-n="2.">Explique o conflito Israel-Palestina em 5 linhas considerando o contexto histórico.</div>
+              <div class="ex" data-n="3.">Como a globalização aumenta a desigualdade entre países desenvolvidos e em desenvolvimento?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=lJe9IsMRJHM" target="_blank"><span>▶</span> Geopolítica Mundial para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Questões ambientais e clima</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Meio ambiente é tema recorrente no ENEM e em redações. Tópicos: mudanças climáticas (efeito estufa, aquecimento global), biomas brasileiros (Amazônia, Cerrado, Caatinga), desertificação, desmatamento, conferências ambientais (Rio 92, Protocolo de Kyoto, Acordo de Paris).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Explique o efeito estufa e como as atividades humanas o intensificam.</div>
+              <div class="ex" data-n="2.">Quais são os principais biomas brasileiros e suas ameaças?</div>
+              <div class="ex" data-n="3.">O que foi o Acordo de Paris e por que ele é importante?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=G4H1N_yXBiA" target="_blank"><span>▶</span> Questões Ambientais para o ENEM (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://mundoeducacao.uol.com.br/geografia" target="_blank">Mundo Educação — Geografia</a> — artigos e mapas gratuitos.</div>
+          <div class="res-item">Leia o Nexo Jornal para entender questões geopolíticas atuais.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🧠</div><div class="mat-title">Filosofia e Sociologia</div><div class="mat-peso">Cai bastante — Média prioridade</div></div>
+        <span class="badge o">IMPORTANTE</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Filósofos mais cobrados no ENEM</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Os mais cobrados: <strong>Platão</strong> (mundo das ideias, mito da caverna), <strong>Aristóteles</strong> (lógica, ética), <strong>Kant</strong> (imperativo categórico, iluminismo), <strong>Marx</strong> (materialismo histórico, luta de classes), <strong>Rousseau</strong> (contrato social), <strong>Locke e Hobbes</strong> (estado de natureza). Não precisa aprofundar — foque nas ideias principais de cada um.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Explique o Mito da Caverna de Platão e sua relação com a educação.</div>
+              <div class="ex" data-n="2.">Compare Hobbes e Rousseau sobre a natureza humana e o papel do Estado.</div>
+              <div class="ex" data-n="3.">O que é o imperativo categórico de Kant? Dê um exemplo cotidiano.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=Nao_OmNnhL4" target="_blank"><span>▶</span> Filósofos do ENEM em 30 min (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Sociologia — Temas mais cobrados</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Temas mais cobrados em Sociologia: <strong>Desigualdade social e racial</strong>, <strong>Movimentos sociais</strong> (feminismo, LGBTQIA+, MST), <strong>Cultura e identidade</strong>, <strong>Mídia e poder</strong>, <strong>Durkheim</strong> (fatos sociais), <strong>Weber</strong> (ação social, burocracia), <strong>Marx</strong> (capitalismo e alienação).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">O que é a teoria do fato social de Durkheim? Dê 2 exemplos da vida real.</div>
+              <div class="ex" data-n="2.">Explique o conceito de alienação em Marx com um exemplo do mercado de trabalho atual.</div>
+              <div class="ex" data-n="3.">Qual o papel dos movimentos sociais na democracia? Cite 2 movimentos e suas conquistas.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=jn7AvN5DJMM" target="_blank"><span>▶</span> Sociologia para o ENEM — Durkheim, Marx e Weber (Descomplica)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- NATUREZAS -->
+<div class="wrap" id="natureza">
+  <div class="eye" style="color:var(--p)">// 06 — CIÊNCIAS DA NATUREZA E SUAS TECNOLOGIAS</div>
+  <h2 class="sec-title">Biologia, Química e Física</h2>
+  <p class="sec-sub">As ciências da natureza têm muito cálculo e muita memorização. Foque nos temas que mais caem.</p>
+
+  <div class="mat-grid">
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">🧬</div><div class="mat-title">Biologia</div><div class="mat-peso">Muito cobrada — Alta prioridade</div></div>
+        <span class="badge p">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Genética e Hereditariedade</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Genética é o tópico mais cobrado em biologia no ENEM. Essenciais: Leis de Mendel (dominância, segregação), Quadrado de Punnett (cruzamentos), herança ligada ao sexo (daltonismo, hemofilia), mutações e doenças genéticas (síndrome de Down). O ENEM sempre dá o enunciado com os cruzamentos — você precisa calcular as probabilidades.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Dois pais heterozigotos (Aa × Aa) têm filhos. Qual a probabilidade de filho com fenótipo recessivo?</div>
+              <div class="ex" data-n="2.">Uma mãe portadora de daltonismo (XᴬX) tem filhos com pai normal. Quais as probabilidades?</div>
+              <div class="ex" data-n="3.">O que é uma mutação cromossômica? Cite um exemplo e sua consequência.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=cbBEbQhv_YY" target="_blank"><span>▶</span> Genética para o ENEM do zero (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Ecologia e Meio Ambiente</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Cadeias e teias alimentares, pirâmides ecológicas, ciclos biogeoquímicos (água, carbono, nitrogênio), biomas, poluição e impactos ambientais. O ENEM adora conectar esses temas com problemas ambientais reais como desmatamento, extinção e mudanças climáticas.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Monte uma cadeia alimentar com 4 níveis e identifique produtores, consumidores e decompositores.</div>
+              <div class="ex" data-n="2.">Explique o ciclo do carbono e como o desmatamento o desequilibra.</div>
+              <div class="ex" data-n="3.">O que é biomagnificação? Cite um exemplo com agrotóxicos.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=Gj0_KbRIzWQ" target="_blank"><span>▶</span> Ecologia para o ENEM (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Citologia e DNA</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Estrutura da célula (organelas e funções), DNA e RNA (estrutura, função, replicação), síntese de proteínas (transcrição e tradução), divisão celular (mitose e meiose). Conexão com biotecnologia: transgênicos, clonagem, terapia gênica — temas modernos que o ENEM adora usar.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Qual a diferença entre célula procarionte e eucarionte? Dê exemplos.</div>
+              <div class="ex" data-n="2.">Explique a diferença entre mitose e meiose: quando ocorre cada uma e qual o resultado.</div>
+              <div class="ex" data-n="3.">Como funciona a síntese proteica? Qual o papel do DNA, mRNA e ribossomo?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=xNE2gYW6Z-g" target="_blank"><span>▶</span> Citologia para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">⚗️</div><div class="mat-title">Química</div><div class="mat-peso">Muito cobrada — Alta prioridade</div></div>
+        <span class="badge p">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Mol, Massa Molar e Estequiometria</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">O mol é o "contador" da química: 1 mol = 6,02 × 10²³ partículas (número de Avogadro). Massa molar = soma das massas atômicas dos elementos na fórmula. Estequiometria usa proporções da equação balanceada para calcular quantidades de reagentes e produtos. É o tema mais cobrado em química no ENEM.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Calcule a massa molar da água (H₂O). Quantas moléculas há em 18g de água?</div>
+              <div class="ex" data-n="2.">Na reação 2H₂ + O₂ → 2H₂O: quantos gramas de H₂O são produzidos a partir de 4g de H₂?</div>
+              <div class="ex" data-n="3.">Quantos mols há em 44g de CO₂? Quantas moléculas? (H=1, C=12, O=16)</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=c9S0u97P9aE" target="_blank"><span>▶</span> Mol e Estequiometria para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Termoquímica, Cinética e Equilíbrio</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Termoquímica:</strong> reações exotérmicas (liberam calor, ΔH negativo) e endotérmicas (absorvem calor, ΔH positivo). <strong>Cinética:</strong> fatores que influenciam a velocidade das reações (temperatura, concentração, catalisador, superfície de contato). <strong>Equilíbrio:</strong> princípio de Le Chatelier — perturbações no sistema deslocam o equilíbrio.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Por que guardar alimentos na geladeira conserva mais? Explique com cinética química.</div>
+              <div class="ex" data-n="2.">O que acontece com o equilíbrio de N₂ + 3H₂ ⇌ 2NH₃ se aumentarmos a pressão?</div>
+              <div class="ex" data-n="3.">Classifique como exotérmica ou endotérmica: combustão, fotossíntese, queima de vela.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=fcABONlIOyY" target="_blank"><span>▶</span> Cinética e Equilíbrio para o ENEM (Descomplica)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Química Orgânica</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Química orgânica trata dos compostos de carbono. O ENEM foca em: funções orgânicas (hidrocarbonetos, álcoois, ácidos carboxílicos, ésteres), propriedades físico-químicas, isomeria, e aplicações práticas (combustíveis, polímeros, medicamentos, alimentos).</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Identifique a função orgânica e nomeie: CH₃OH, CH₃COOH, C₂H₅OH.</div>
+              <div class="ex" data-n="2.">O que é isomeria? Dê um exemplo de isômeros com fórmula molecular C₄H₁₀.</div>
+              <div class="ex" data-n="3.">Por que o etanol (C₂H₅OH) é usado como combustível? Cite vantagens ambientais.</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=zv8t1tVTe_E" target="_blank"><span>▶</span> Química Orgânica para o ENEM (Me Salva!)</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card">
+      <div class="mat-head">
+        <div><div class="mat-icon">⚡</div><div class="mat-title">Física</div><div class="mat-peso">Muito cobrada — Alta prioridade</div></div>
+        <span class="badge p">ESSENCIAL</span>
+      </div>
+      <div class="mat-body">
+        <div class="mat-body-lbl">// Tópicos com exercícios</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Mecânica (cinemática e dinâmica)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Cinemática:</strong> MRU (v = d/t) e MRUV (v = v₀ + at, d = v₀t + at²/2). <strong>Dinâmica:</strong> Leis de Newton (inércia, F=ma, ação e reação), atrito, peso (P=mg). O ENEM adora problemas de carro freando, queda livre, projétil e plano inclinado. Sempre peça as unidades e confira os dados.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Um carro a 90 km/h freia com desaceleração de 5 m/s². Quanto tempo leva para parar?</div>
+              <div class="ex" data-n="2.">Uma pedra cai do alto de um prédio de 80m. Com qual velocidade chega ao chão? (g=10m/s²)</div>
+              <div class="ex" data-n="3.">Uma força de 200N age sobre um objeto de 40kg. Qual a aceleração? Qual o atrito se houver?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=MFvkT0Xjnq4" target="_blank"><span>▶</span> Mecânica para o ENEM do zero (Me Salva!)</a></div>
+          </div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Eletricidade e Ondas</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Eletricidade:</strong> Lei de Ohm (V=RI), potência (P=VI=V²/R=RI²), circuitos série e paralelo, consumo de energia (E=P×t em kWh). <strong>Ondas:</strong> v=λf (velocidade, comprimento de onda, frequência), espectro eletromagnético, reflexão, refração, efeito Doppler. O ENEM adora conta de luz e velocidade do som/luz.</p>
+            <div class="exs-lbl">// Exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Um chuveiro de 5400W fica ligado 15 min por dia. Qual o consumo mensal em kWh?</div>
+              <div class="ex" data-n="2.">Uma onda tem frequência 440 Hz e velocidade 340 m/s. Qual o comprimento de onda?</div>
+              <div class="ex" data-n="3.">Dois resistores de 4Ω e 6Ω ligados em paralelo. Qual a resistência equivalente?</div>
+            </div>
+            <div class="vid-rec"><div class="vid-rec-lbl">// VÍDEO</div><a class="vid-link" href="https://www.youtube.com/watch?v=r2dZoA7kFP0" target="_blank"><span>▶</span> Eletricidade para o ENEM (Ferretto)</a></div>
+          </div>
+        </div>
+        <div class="mat-body-lbl" style="margin-top:1rem">// Recursos</div>
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.youtube.com/@ProfessorFerretto" target="_blank">Prof. Ferretto</a> — física e matemática. Melhor para quem precisa de cálculo.</div>
+          <div class="res-item"><a href="https://www.khanacademy.org/science/physics" target="_blank">Khan Academy — Física</a> — exercícios gratuitos com resolução passo a passo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- MELHORES SITES -->
+<div class="wrap" id="sites">
+  <div class="eye" style="color:var(--g)">// 07 — SITES E RECURSOS GRATUITOS</div>
+  <h2 class="sec-title">Os Melhores Sites Gratuitos para o ENEM</h2>
+  <p class="sec-sub">Tudo que você precisa está disponível de graça. Não precisa pagar curso caro.</p>
+
+  <div class="mat-grid">
+    <div class="mat-card" style="border-color:rgba(0,232,122,.25)">
+      <div class="mat-head"><div><div class="mat-icon">📺</div><div class="mat-title">YouTube — Canais Essenciais</div></div><span class="badge g">GRATUITO</span></div>
+      <div class="mat-body">
+        <div class="res-list">
+          <div class="res-item"><a href="https://youtube.com/@mesalva" target="_blank">Me Salva!</a> — todas as matérias, muito didático, organizados por tópico</div>
+          <div class="res-item"><a href="https://youtube.com/@descomplica" target="_blank">Descomplica</a> — resumos rápidos de todas as matérias</div>
+          <div class="res-item"><a href="https://youtube.com/@ProfessorFerretto" target="_blank">Professor Ferretto</a> — melhor para Matemática e Física</div>
+          <div class="res-item"><a href="https://youtube.com/@ProfNoslen" target="_blank">Prof. Noslen</a> — Português e Redação (indispensável)</div>
+          <div class="res-item"><a href="https://youtube.com/@RedacaoNota1000" target="_blank">Redação Nota 1000</a> — correções ao vivo e análise de competências</div>
+          <div class="res-item"><a href="https://youtube.com/@biologiatotal" target="_blank">Biologia Total</a> — genética, ecologia e citologia</div>
+          <div class="res-item"><a href="https://youtube.com/@qisabelafranca" target="_blank">Química com Isabel França</a> — química de forma simples e contextualizada</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card" style="border-color:rgba(56,189,248,.25)">
+      <div class="mat-head"><div><div class="mat-icon">🌐</div><div class="mat-title">Sites de Exercícios e Simulados</div></div><span class="badge b">GRATUITO</span></div>
+      <div class="mat-body">
+        <div class="res-list">
+          <div class="res-item"><a href="https://www.qconcursos.com/questoes-do-enem" target="_blank">QConcursos — ENEM</a> — banco de questões filtrado por matéria e ano</div>
+          <div class="res-item"><a href="https://www.stoodi.com.br" target="_blank">Stoodi</a> — exercícios gamificados por matéria com gabarito</div>
+          <div class="res-item"><a href="https://www.khanacademy.org/pt-br" target="_blank">Khan Academy PT</a> — exercícios infinitos com feedback imediato</div>
+          <div class="res-item"><a href="https://vestibulares.estrategia.com/portal/simulados" target="_blank">Estratégia Vestibulares</a> — simulados ENEM gratuitos cronometrados</div>
+          <div class="res-item"><a href="https://enem.inep.gov.br" target="_blank">INEP — Provas Anteriores</a> — todas as provas do ENEM desde 1998</div>
+          <div class="res-item"><a href="https://www.todovestibular.com.br/enem/" target="_blank">Todo Vestibular ENEM</a> — questões organizadas por ano e matéria</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-card" style="border-color:rgba(167,139,250,.25)">
+      <div class="mat-head"><div><div class="mat-icon">📚</div><div class="mat-title">Sites de Conteúdo e Estudo</div></div><span class="badge p">GRATUITO</span></div>
+      <div class="mat-body">
+        <div class="res-list">
+          <div class="res-item"><a href="https://brasilescola.uol.com.br" target="_blank">Brasil Escola</a> — artigos completos de todas as matérias do ENEM</div>
+          <div class="res-item"><a href="https://mundoeducacao.uol.com.br" target="_blank">Mundo Educação</a> — conteúdo didático organizado por matéria</div>
+          <div class="res-item"><a href="https://www.coladaweb.com" target="_blank">Cola da Web</a> — resumos e esquemas de todas as matérias</div>
+          <div class="res-item"><a href="https://nexojornal.com.br" target="_blank">Nexo Jornal</a> — notícias com contexto, ótimo para redação e humanas</div>
+          <div class="res-item"><a href="https://revisaonline.com.br" target="_blank">Revisão Online</a> — simulados e revisões organizadas por matéria</div>
+          <div class="res-item"><a href="https://www.infoescola.com" target="_blank">InfoEscola</a> — resumos de ciências, história e geografia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ibox" style="margin-top:1.5rem">
+    <strong>Estratégia de uso:</strong> Use YouTube para aprender o conteúdo novo → Brasil Escola/Mundo Educação para ler e revisar → QConcursos/Stoodi para praticar com exercícios → Provas do INEP para simulados completos. Não fique só assistindo — pratique!
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- DICAS -->
+<div class="wrap" id="dicas">
+  <div class="eye" style="color:var(--y)">// 08 — ESTRATÉGIAS DE PROVA</div>
+  <h2 class="sec-title">Dicas Para o Dia da Prova</h2>
+  <p class="sec-sub">Saber o conteúdo é 70% do trabalho. Os outros 30% são estratégia na hora da prova.</p>
+  <div class="dica-grid">
+    <div class="dica-card"><div class="dica-n">// DICA #1</div><h4>Comece pelo que você sabe.</h4><p>Não fique 30 minutos numa questão difícil. Marque e pule. Responda todas as fáceis primeiro — garante pontos seguros.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #2</div><h4>Leia o enunciado até o fim.</h4><p>60% dos erros no ENEM são por não ler o enunciado completo. Leia devagar. A resposta está no texto — procure antes de usar o que sabe.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #3</div><h4>Elimine alternativas absurdas.</h4><p>Numa questão de 5 alternativas, elimine as 2 claramente erradas. Você passa de 20% para 33% de chance. Ajuda muito nas dúvidas.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #4</div><h4>Redação: não deixe em branco.</h4><p>Redação em branco = zero e risco de eliminação do SISU. Mesmo que ruim, escreva os 4 parágrafos. Qualquer nota é melhor que zero.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #5</div><h4>Gerencie o tempo.</h4><p>Dia 1 (Humanas + Redação): 5h30. Dia 2 (Naturezas + Matemática): 5h30. Média de 3 min por questão. Reserve 1h para redação.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #6</div><h4>Faça simulados cronometrados.</h4><p>Treinar sem tempo é diferente de treinar com tempo. Faça pelo menos 1 simulado completo por mês com cronômetro — como se fosse dia de prova.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #7</div><h4>Analise os erros.</h4><p>Não adianta fazer simulado e olhar só o gabarito. Para cada erro: por que errei? Era conteúdo ou interpretação? Anote e revise esse tópico.</p></div>
+    <div class="dica-card"><div class="dica-n">// DICA #8</div><h4>Cuide do físico.</h4><p>Sono regular, alimentação e exercício físico têm impacto direto na memória e concentração. Isso não é detalhe — é parte do estudo.</p></div>
+  </div>
+</div>
+
+<div class="footer">Bora chegar nos 700+ esse ano. <span>// Você consegue 🎯</span></div>
+
+<script>
+function toggle(btn){
+  const body=btn.nextElementSibling;
+  const open=body.classList.contains('open');
+  body.classList.toggle('open',!open);
+  btn.classList.toggle('open',!open);
+}
+</script>
+</body>
+</html>

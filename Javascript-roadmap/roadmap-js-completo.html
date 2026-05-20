@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mega Curso JS — Do Zero ao Dev</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080810;--surf:#0f0f1a;--card:#13131f;
+  --g:#00e87a;--o:#ff7043;--p:#8b6fff;--b:#38bdf8;--r:#f87171;
+  --text:#e2e2f0;--muted:#60607a;--border:#22223a;
+  --mono:'JetBrains Mono',monospace;--sans:'Bricolage Grotesque',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,8,16,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.6rem 2rem;display:flex;align-items:center;gap:1.1rem;overflow-x:auto}
+.nav-logo{font-family:var(--mono);font-size:.7rem;color:var(--g);white-space:nowrap;margin-right:auto}
+.nl{font-family:var(--mono);font-size:.58rem;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s}
+.nl:hover{color:var(--g)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 2rem 4rem;max-width:1120px;margin:0 auto}
+.hero-eye{font-family:var(--mono);font-size:.66rem;color:var(--g);letter-spacing:.3em;margin-bottom:1.4rem}
+.hero h1{font-size:clamp(2.8rem,8vw,6.5rem);font-weight:800;line-height:.93;letter-spacing:-.04em;margin-bottom:1.4rem}
+.hero h1 em{font-style:normal;color:var(--g)}
+.hero h1 .ho{color:var(--o)}
+.hero-desc{font-size:1.02rem;color:var(--muted);max-width:540px;margin-bottom:2.2rem}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:10px;overflow:hidden;max-width:520px}
+.stat{background:var(--card);padding:.85rem;text-align:center}
+.stat-n{font-family:var(--mono);font-size:1.55rem;font-weight:700;color:var(--g)}
+.stat-l{font-family:var(--mono);font-size:.48rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1120px;margin:0 auto;padding:4.5rem 2rem}
+.eye{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.35rem;color:var(--g)}
+.eye.o{color:var(--o)}.eye.p{color:var(--p)}.eye.b{color:var(--b)}.eye.r{color:var(--r)}
+.sec-title{font-size:clamp(1.7rem,4vw,2.7rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:.4rem}
+.sec-sub{color:var(--muted);font-size:.9rem;max-width:640px;margin-bottom:2.2rem}
+hr.div{border:none;height:1px;background:var(--border);max-width:1120px;margin:0 auto}
+
+/* ── FASE ── */
+.fase{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:1.4rem;overflow:hidden}
+.fase-head{padding:1.3rem 1.7rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.badge{font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.15em;padding:.26rem .72rem;border-radius:3px;white-space:nowrap}
+.bg-g{background:rgba(0,232,122,.13);color:var(--g);border:1px solid rgba(0,232,122,.28)}
+.bg-o{background:rgba(255,112,67,.13);color:var(--o);border:1px solid rgba(255,112,67,.28)}
+.bg-p{background:rgba(139,111,255,.13);color:var(--p);border:1px solid rgba(139,111,255,.28)}
+.bg-b{background:rgba(56,189,248,.13);color:var(--b);border:1px solid rgba(56,189,248,.28)}
+.bg-r{background:rgba(248,113,113,.13);color:var(--r);border:1px solid rgba(248,113,113,.28)}
+.fase-title{font-size:1.12rem;font-weight:700}
+.fase-time{font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.18rem}
+
+/* ── COLS ── */
+.fase-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:700px){.fase-cols{grid-template-columns:1fr}}
+.fase-col{padding:1.3rem 1.7rem;border-right:1px solid var(--border)}
+.fase-col:last-child{border-right:none}
+.col-lbl{font-family:var(--mono);font-size:.56rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.8rem}
+
+/* ── ACCORDION TOPIC ── */
+.acc-item{margin-bottom:.55rem;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.acc-btn{width:100%;background:var(--surf);border:none;cursor:pointer;padding:.65rem .9rem;display:flex;align-items:center;justify-content:space-between;gap:.6rem;text-align:left;transition:background .2s}
+.acc-btn:hover{background:rgba(255,255,255,.04)}
+.acc-btn.open{background:rgba(0,232,122,.06)}
+.fase-o .acc-btn.open{background:rgba(255,112,67,.06)}
+.fase-p .acc-btn.open{background:rgba(139,111,255,.06)}
+.fase-b .acc-btn.open{background:rgba(56,189,248,.06)}
+.fase-r .acc-btn.open{background:rgba(248,113,113,.06)}
+.acc-name{font-size:.83rem;font-weight:700;color:var(--text);display:flex;align-items:center;gap:.45rem}
+.acc-name::before{content:'▸';font-size:.6rem;flex-shrink:0;transition:transform .25s}
+.acc-btn.open .acc-name::before{transform:rotate(90deg)}
+.fase-g .acc-name::before{color:var(--g)}
+.fase-o .acc-name::before{color:var(--o)}
+.fase-p .acc-name::before{color:var(--p)}
+.fase-b .acc-name::before{color:var(--b)}
+.fase-r .acc-name::before{color:var(--r)}
+.acc-arrow{font-family:var(--mono);font-size:.6rem;color:var(--muted);flex-shrink:0;transition:transform .25s}
+.acc-btn.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:.7rem .9rem .9rem;background:var(--card);border-top:1px solid var(--border)}
+.acc-body.open{display:block}
+.acc-body p.acc-explain{font-size:.8rem;color:var(--text);line-height:1.6;margin-bottom:.7rem;padding:.6rem .8rem;background:var(--surf);border-left:2px solid var(--g);border-radius:0 4px 4px 0}
+.fase-o .acc-body p.acc-explain{border-color:var(--o)}
+.fase-p .acc-body p.acc-explain{border-color:var(--p)}
+.fase-b .acc-body p.acc-explain{border-color:var(--b)}
+.fase-r .acc-body p.acc-explain{border-color:var(--r)}
+.exs-lbl{font-family:var(--mono);font-size:.55rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.45rem}
+.exs{display:flex;flex-direction:column;gap:.28rem}
+.ex{font-size:.76rem;color:var(--muted);line-height:1.5;padding-left:1.3rem;position:relative}
+.ex::before{content:attr(data-n);position:absolute;left:0;font-family:var(--mono);font-size:.6rem;color:var(--o);font-weight:700}
+
+/* ── PDF STRIP ── */
+.pdf-strip{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap;padding:.85rem 1.7rem;border-top:1px dashed rgba(0,232,122,.2);background:rgba(0,232,122,.025)}
+.pdf-strip.o{border-color:rgba(255,112,67,.2);background:rgba(255,112,67,.025)}
+.pdf-strip.p{border-color:rgba(139,111,255,.2);background:rgba(139,111,255,.025)}
+.pdf-strip.b{border-color:rgba(56,189,248,.2);background:rgba(56,189,248,.025)}
+.pdf-lbl{font-family:var(--mono);font-size:.58rem;color:var(--g);flex:1;min-width:180px}
+.pdf-strip.o .pdf-lbl{color:var(--o)}.pdf-strip.p .pdf-lbl{color:var(--p)}.pdf-strip.b .pdf-lbl{color:var(--b)}
+.pdf-btn{font-family:var(--mono);font-size:.62rem;font-weight:700;padding:.36rem .85rem;border-radius:4px;text-decoration:none;background:var(--g);color:var(--bg);transition:opacity .2s;white-space:nowrap}
+.pdf-btn:hover{opacity:.8}
+.pdf-strip.o .pdf-btn{background:var(--o)}
+.pdf-strip.p .pdf-btn{background:var(--p);color:#fff}
+.pdf-strip.b .pdf-btn{background:var(--b);color:var(--bg)}
+.pdf-btn.purple{background:var(--p);color:#fff}
+
+/* ── ARQUITETURA ── */
+.arch-intro{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem;margin-bottom:2rem}
+.arch-intro h3{font-size:1.1rem;font-weight:700;margin-bottom:.8rem;color:var(--o)}
+.arch-intro p{font-size:.87rem;color:var(--muted);line-height:1.7;margin-bottom:.6rem}
+.arch-intro p strong{color:var(--text)}
+.arch-analogy{background:var(--surf);border-left:2px solid var(--o);border-radius:0 8px 8px 0;padding:.8rem 1rem;margin-top:1rem;font-size:.84rem;color:var(--muted);line-height:1.6;font-style:italic}
+.arch-analogy strong{color:var(--o);font-style:normal}
+
+.arch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.2rem}
+.arch-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s}
+.arch-card:hover{border-color:var(--o)}
+.arch-head{padding:1.1rem 1.4rem .7rem;border-bottom:1px solid var(--border);background:rgba(255,112,67,.03)}
+.arch-icon{font-size:1.5rem;margin-bottom:.4rem}
+.arch-card h3{font-size:.95rem;font-weight:700;margin-bottom:.15rem}
+.arch-card .arch-sub{font-size:.72rem;color:var(--o);font-family:var(--mono)}
+.arch-body{padding:1rem 1.4rem 1.2rem}
+.arch-explain{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:.9rem}
+.arch-explain strong{color:var(--text)}
+.arch-body pre{font-family:var(--mono);font-size:.68rem;color:var(--g);line-height:1.7;background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:.85rem 1rem;overflow-x:auto;white-space:pre}
+.arch-tip{font-size:.74rem;color:var(--muted);margin-top:.7rem;line-height:1.55;padding:.6rem .8rem;background:rgba(255,112,67,.05);border-left:2px solid var(--o);border-radius:0 4px 4px 0}
+.arch-tip strong{color:var(--o)}
+
+/* ── SOLID ── */
+.solid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1.5rem}
+.solid-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.3rem}
+.solid-letter{font-family:var(--mono);font-size:2rem;font-weight:700;color:var(--o);line-height:1;margin-bottom:.4rem}
+.solid-card h4{font-size:.88rem;font-weight:700;margin-bottom:.35rem}
+.solid-card p{font-size:.76rem;color:var(--muted);line-height:1.55;margin-bottom:.5rem}
+.solid-ex{font-size:.73rem;color:var(--muted);font-style:italic;padding:.5rem .7rem;background:var(--surf);border-radius:4px;line-height:1.5}
+
+/* ── CHALLENGES ── */
+.ch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.05rem}
+.ch-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;transition:transform .2s,border-color .2s}
+.ch-card:hover{transform:translateY(-2px);border-color:var(--p)}
+.lv{font-family:var(--mono);font-size:.55rem;font-weight:700;letter-spacing:.15em;padding:.17rem .48rem;border-radius:3px;margin-bottom:.55rem;display:inline-block}
+.lv-e{background:rgba(0,232,122,.12);color:var(--g)}
+.lv-m{background:rgba(255,112,67,.12);color:var(--o)}
+.lv-h{background:rgba(139,111,255,.12);color:var(--p)}
+.ch-card h3{font-size:.9rem;font-weight:700;margin-bottom:.28rem}
+.ch-card p{font-size:.76rem;color:var(--muted);margin-bottom:.65rem;line-height:1.5}
+.tags{display:flex;flex-wrap:wrap;gap:.28rem}
+.tag{font-family:var(--mono);font-size:.55rem;background:var(--surf);border:1px solid var(--border);padding:.15rem .42rem;border-radius:3px;color:var(--muted)}
+
+/* ── PROJETOS ── */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.15rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .2s}
+.proj-card:hover{transform:translateY(-2px)}
+.proj-top{padding:1.2rem 1.4rem .85rem;border-bottom:1px solid var(--border)}
+.proj-icon{font-size:1.65rem;margin-bottom:.5rem}
+.proj-card h3{font-size:.95rem;font-weight:700;margin-bottom:.15rem}
+.proj-lvl{font-family:var(--mono);font-size:.56rem;color:var(--o);text-transform:uppercase;letter-spacing:.1em}
+.proj-bot{padding:.9rem 1.4rem 1.2rem}
+.proj-bot p{font-size:.77rem;color:var(--muted);margin-bottom:.65rem;line-height:1.5}
+.tech-row{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem}
+.tech{font-family:var(--mono);font-size:.55rem;background:rgba(0,232,122,.07);border:1px solid rgba(0,232,122,.18);color:var(--g);padding:.15rem .42rem;border-radius:3px}
+.steps-lbl{font-family:var(--mono);font-size:.54rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem}
+.steps{list-style:none;display:flex;flex-direction:column;gap:.26rem}
+.steps li{font-size:.73rem;color:var(--muted);padding-left:1.25rem;position:relative;line-height:1.4}
+.steps li::before{content:attr(data-n);position:absolute;left:0;font-family:var(--mono);font-size:.57rem;color:var(--o);font-weight:700}
+
+/* ── LIVROS ── */
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.05rem}
+.book-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;display:flex;gap:.95rem;align-items:flex-start;transition:border-color .2s}
+.book-card:hover{border-color:var(--p)}
+.book-card.feat{border-color:var(--g);background:rgba(0,232,122,.035)}
+.spine{width:42px;height:58px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:var(--surf);border:1px solid var(--border)}
+.spine.g{background:rgba(0,232,122,.14);border-color:rgba(0,232,122,.3)}
+.binfo h4{font-size:.85rem;font-weight:700;margin-bottom:.1rem}
+.bauthor{font-size:.66rem;color:var(--muted);margin-bottom:.3rem}
+.bdesc{font-size:.72rem;color:var(--muted);line-height:1.45;margin-bottom:.55rem}
+.blinks{display:flex;gap:.32rem;flex-wrap:wrap}
+.bl{font-family:var(--mono);font-size:.57rem;font-weight:700;padding:.2rem .52rem;border-radius:3px;text-decoration:none;transition:opacity .2s}
+.bl:hover{opacity:.75}
+.bl.free{background:rgba(0,232,122,.12);color:var(--g);border:1px solid rgba(0,232,122,.25)}
+.bl.paid{background:rgba(255,112,67,.12);color:var(--o);border:1px solid rgba(255,112,67,.25)}
+.bl.gh{background:rgba(139,111,255,.12);color:var(--p);border:1px solid rgba(139,111,255,.25)}
+.bl.rd{background:rgba(56,189,248,.12);color:var(--b);border:1px solid rgba(56,189,248,.25)}
+
+/* ── ROTINA ── */
+.rotina-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.05rem}
+.dia-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.dia-head{padding:.65rem 1.05rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dia-name{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.dia-sub{font-size:.66rem;color:var(--muted)}
+.slot{padding:.45rem 1.05rem;display:flex;gap:.7rem;align-items:flex-start;border-bottom:1px solid var(--border)}
+.slot:last-child{border-bottom:none}
+.slot.prog{border-left:2px solid var(--g)}
+.slot.escola{border-left:2px solid var(--b)}
+.slot.plan{border-left:2px solid var(--muted)}
+.slot-time{font-family:var(--mono);font-size:.56rem;color:var(--muted);white-space:nowrap;min-width:2.8rem;padding-top:.12rem}
+.slot-ico{font-size:.8rem;flex-shrink:0}
+.slot-title{font-size:.76rem;font-weight:600;margin-bottom:.05rem}
+.slot-desc{font-size:.67rem;color:var(--muted);line-height:1.4}
+.ics-box{margin-top:1.6rem;background:rgba(0,232,122,.035);border:1px dashed rgba(0,232,122,.28);border-radius:10px;padding:1.15rem 1.4rem;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap}
+.ics-box p{font-size:.81rem;color:var(--muted);flex:1;min-width:200px;line-height:1.55}
+.ics-box strong{color:var(--g)}
+
+/* ── INFO BOX ── */
+.ibox{border-radius:10px;padding:1rem 1.35rem;font-size:.8rem;color:var(--muted);margin-top:1.4rem;line-height:1.6;border:1px dashed rgba(0,232,122,.22);background:rgba(0,232,122,.03)}
+.ibox.o{border-color:rgba(255,112,67,.22);background:rgba(255,112,67,.03)}
+.ibox.b{border-color:rgba(56,189,248,.22);background:rgba(56,189,248,.03)}
+.ibox strong{color:var(--g)}.ibox.o strong{color:var(--o)}.ibox.b strong{color:var(--b)}
+
+/* ── INGLÊS ── */
+.ing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:.95rem;margin-top:1.65rem}
+.ing-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem}
+.ing-card h4{font-size:.84rem;font-weight:700;margin-bottom:.22rem}
+.ing-card p{font-size:.72rem;color:var(--muted);line-height:1.45;margin-bottom:.45rem}
+
+/* ── MENTAL ── */
+.mental-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:.95rem}
+.mental-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem}
+.mental-n{font-family:var(--mono);font-size:.56rem;color:var(--g);letter-spacing:.14em;margin-bottom:.4rem}
+.mental-card h4{font-size:.9rem;font-weight:700;margin-bottom:.28rem}
+.mental-card p{font-size:.74rem;color:var(--muted);line-height:1.5}
+
+/* ── SUBLABEL ── */
+.slbl{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;margin:2.2rem 0 1.1rem}
+
+/* ── RES ── */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.95rem}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.95rem 1.2rem;display:flex;gap:.8rem;align-items:flex-start;transition:border-color .2s}
+.res-card:hover{border-color:var(--p)}
+.res-icon{font-size:1.2rem;flex-shrink:0}
+.res-info h4{font-size:.83rem;font-weight:700;margin-bottom:.1rem}
+.res-info p{font-size:.71rem;color:var(--muted);margin-bottom:.28rem;line-height:1.4}
+.res-type{font-family:var(--mono);font-size:.54rem;color:var(--p)}
+
+/* ── ANIM ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.hero>*{animation:fadeUp .5s ease both}
+.hero-eye{animation-delay:.1s}.hero h1{animation-delay:.2s}.hero-desc{animation-delay:.3s}.stats{animation-delay:.4s}
+.footer{text-align:center;padding:3rem 2rem;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+.footer span{color:var(--g)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">// MEGA CURSO JS</span>
+  <a class="nl" href="#fundacoes">01 Fundações</a>
+  <a class="nl" href="#backend">02 Back-End</a>
+  <a class="nl" href="#docker">03 Docker</a>
+  <a class="nl" href="#frontend">04 Front-End</a>
+  <a class="nl" href="#arquitetura">05 Arquitetura</a>
+  <a class="nl" href="#desafios">06 Desafios</a>
+  <a class="nl" href="#projetos">07 Projetos</a>
+  <a class="nl" href="#livros">08 Livros</a>
+  
+  <a class="nl" href="#ingles">09 Inglês</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eye">// Seu roteiro completo · JavaScript · Back-End · 2025–2026</div>
+  <h1>De Zero ao<br><em>Back-End</em><br><span class="ho">Dev</span></h1>
+  <p class="hero-desc">Roadmap completo em JS — lógica, algoritmos, APIs, Docker, React, arquitetura, projetos reais, desafios de vagas e rotina integrada ao Notion.</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-n">9</div><div class="stat-l">Fases</div></div>
+    <div class="stat"><div class="stat-n">30+</div><div class="stat-l">Desafios</div></div>
+    <div class="stat"><div class="stat-n">9</div><div class="stat-l">Projetos</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">PDFs</div></div>
+    <div class="stat"><div class="stat-n">3+</div><div class="stat-l">Ex/Tópico</div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 01 FUNDAÇÕES -->
+<div class="wrap" id="fundacoes">
+  <div class="eye">// 01 — FUNDAÇÕES</div>
+  <h2 class="sec-title">Lógica &amp; JavaScript Puro</h2>
+  <p class="sec-sub">Sem framework, sem biblioteca. Só você, o terminal e o JS. A base de tudo — não pule.</p>
+
+
+  <!-- LÓGICA FUNDACIONAL EXPANDIDA -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:1.5rem;overflow:hidden">
+    <div style="padding:1.3rem 1.7rem .85rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div style="font-size:1.12rem;font-weight:700">🧠 Fundamentos de Lógica — Antes de Codar</div>
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.18rem">⏱ 2–3 semanas · Estude isso antes de qualquer código · É a base da base</div>
+      </div>
+      <span class="badge bg-g">PRÉ-FASE</span>
+    </div>
+
+    <div style="padding:1.5rem 1.7rem">
+      <p style="font-size:.88rem;color:var(--muted);line-height:1.75;max-width:800px;margin-bottom:1.5rem">
+        Antes de escrever a primeira linha de código, você precisa entender <strong style="color:var(--text)">como o pensamento lógico funciona</strong>. Um programador com lógica fraca vai sofrer em todo problema, mesmo que saiba a sintaxe de memória. Esta seção te ensina a pensar como um computador — passo a passo, sem ambiguidade.
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem">
+
+        <!-- Fluxograma -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">🔷 Fluxograma — Visualize Antes de Codar</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              Fluxograma é um <strong>diagrama que representa visualmente a lógica de um programa</strong> antes de escrever código. Você usa formas geométricas com significados específicos:<br><br>
+              <strong>⬭ Oval</strong> — Início e Fim do programa<br>
+              <strong>▭ Retângulo</strong> — Processo / instrução (ex: "some X com Y")<br>
+              <strong>◇ Losango</strong> — Decisão / condição (ex: "X é maior que 0?")<br>
+              <strong>▱ Paralelogramo</strong> — Entrada ou saída de dados<br>
+              <strong>→ Setas</strong> — Fluxo de execução (o caminho que o programa segue)<br><br>
+              Antes de programar qualquer coisa minimamente complexa, desenhe o fluxograma. Parece trabalho extra, mas economiza horas de debug.
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Desenhe o fluxograma de: "leia dois números, some eles e mostre o resultado".</div>
+              <div class="ex" data-n="2.">Desenhe o fluxograma de: "leia uma nota de 0 a 10, se ≥7 mostre APROVADO, senão REPROVADO".</div>
+              <div class="ex" data-n="3.">Desenhe o fluxograma de: "mostre os números de 1 a 10" usando um loop com uma variável contadora.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Lub5qOmY4JQ" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Fluxograma — Como fazer do zero (Curso em Vídeo)</span></a>
+            </div>
+            <div style="margin-top:.6rem;padding:.6rem .8rem;background:rgba(0,232,122,.04);border-left:2px solid var(--g);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--g);letter-spacing:.15em;margin-bottom:.3rem">// FERRAMENTA GRATUITA</div>
+              <a href="https://draw.io" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none">draw.io — desenhe fluxogramas online gratuitamente</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposições lógicas -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">📐 Proposições e Lógica Booleana</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              <strong>Proposição</strong> é qualquer afirmação que pode ser verdadeira (V) ou falsa (F). Ex: "5 &gt; 3" é V. "gato é um peixe" é F.<br><br>
+              Os operadores lógicos combinam proposições:<br><br>
+              <strong>E (AND / &&)</strong> — Ambas precisam ser V para o resultado ser V<br>
+              &nbsp;&nbsp;V e V = V &nbsp;|&nbsp; V e F = F &nbsp;|&nbsp; F e F = F<br><br>
+              <strong>OU (OR / ||)</strong> — Pelo menos uma precisa ser V<br>
+              &nbsp;&nbsp;V ou V = V &nbsp;|&nbsp; V ou F = V &nbsp;|&nbsp; F ou F = F<br><br>
+              <strong>NÃO (NOT / !)</strong> — Inverte o valor<br>
+              &nbsp;&nbsp;não V = F &nbsp;|&nbsp; não F = V<br><br>
+              Isso vira condicionais no código: <code style="background:var(--surf);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:.73rem">if (idade >= 18 && temCNH)</code>
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Monte a tabela verdade de "A E B", "A OU B" e "NÃO A" para todos os casos possíveis.</div>
+              <div class="ex" data-n="2.">Traduza para lógica booleana: "O aluno passa se tiver nota ≥ 7 E não tiver mais de 25% de faltas".</div>
+              <div class="ex" data-n="3.">Crie 5 proposições cotidianas e classifique como V ou F. Depois combine-as com E, OU e NÃO.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=7aTLa5BbFYQ" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span>▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Lógica Booleana e Tabela Verdade (Curso em Vídeo)</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Código Binário -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">💾 Sistema Binário e Como o Computador Pensa</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              O computador só entende <strong>dois estados: ligado (1) e desligado (0)</strong>. Tudo — números, textos, imagens, sons — é armazenado como sequências de 0s e 1s.<br><br>
+              <strong>Como converter decimal para binário:</strong><br>
+              Divida por 2 sucessivamente e anote os restos de baixo para cima.<br>
+              Ex: 13 → 13÷2=6 R1, 6÷2=3 R0, 3÷2=1 R1, 1÷2=0 R1 → binário: <strong>1101</strong><br><br>
+              <strong>Como converter binário para decimal:</strong><br>
+              Multiplique cada bit pela potência de 2 correspondente.<br>
+              Ex: 1101 = 1×8 + 1×4 + 0×2 + 1×1 = 8+4+0+1 = <strong>13</strong><br><br>
+              <strong>Bit</strong> = 1 dígito binário (0 ou 1)<br>
+              <strong>Byte</strong> = 8 bits (pode representar 256 valores: 0 a 255)<br>
+              <strong>ASCII</strong> = padrão que mapeia bytes para caracteres (ex: 'A' = 65 = 01000001)
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Converta 10 números decimais (1 a 20) para binário na mão. Verifique no console: (13).toString(2).</div>
+              <div class="ex" data-n="2.">Converta os binários 1010, 11001, 101010 para decimal na mão. Verifique: parseInt('1010', 2).</div>
+              <div class="ex" data-n="3.">Escreva seu nome em ASCII. Cada letra tem um número — consulte a tabela ASCII e some todos os valores.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=LpuPe81bc2w" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span>▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Sistema Binário explicado do zero (Curso em Vídeo)</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pseudocódigo e Portugol -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">📝 Pseudocódigo e Portugol</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              <strong>Pseudocódigo</strong> é escrever o algoritmo em português estruturado — sem se preocupar com a sintaxe de nenhuma linguagem. É uma etapa entre o pensamento e o código real.<br><br>
+              <strong>Portugol</strong> é um pseudocódigo padronizado muito usado no Brasil para ensino. Tem sintaxe similar às linguagens reais mas em português.<br><br>
+              Exemplo em pseudocódigo:<br>
+              <em>INÍCIO<br>
+              &nbsp;&nbsp;LEIA numero<br>
+              &nbsp;&nbsp;SE numero &gt; 0 ENTÃO<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;ESCREVA "Positivo"<br>
+              &nbsp;&nbsp;SENÃO<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;ESCREVA "Negativo ou zero"<br>
+              &nbsp;&nbsp;FIM SE<br>
+              FIM</em><br><br>
+              Praticar com Portugol antes de JS ajuda muito a separar "pensar o algoritmo" de "lembrar a sintaxe".
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Escreva em pseudocódigo: leia 3 notas, calcule a média e diga se passou ou reprovou.</div>
+              <div class="ex" data-n="2.">Escreva em pseudocódigo: leia um número e diga se é par ou ímpar usando módulo.</div>
+              <div class="ex" data-n="3.">Escreva em pseudocódigo: mostre a tabuada do número informado pelo usuário de 1 a 10.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=8mei6uVttho" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span>▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Pseudocódigo e Portugol do zero (Curso em Vídeo)</span></a>
+            </div>
+            <div style="margin-top:.6rem;padding:.6rem .8rem;background:rgba(0,232,122,.04);border-left:2px solid var(--g);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--g);letter-spacing:.15em;margin-bottom:.3rem">// FERRAMENTA GRATUITA</div>
+              <a href="https://portugol.dev" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none">portugol.dev — IDE online para praticar Portugol no browser</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Variáveis na memória -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">🗃️ Como a Memória do Computador Funciona</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              Quando você declara uma variável, o computador <strong>reserva um espaço na memória RAM</strong> e dá um nome a ele. Pense na RAM como uma planilha gigante: cada célula tem um endereço (número) e um valor.<br><br>
+              <strong>Tipos e tamanho na memória:</strong><br>
+              • <strong>boolean</strong> — 1 bit (0 ou 1)<br>
+              • <strong>int/number</strong> — 4 a 8 bytes<br>
+              • <strong>string</strong> — 1 byte por caractere (ASCII) ou 2 bytes (Unicode)<br><br>
+              <strong>Stack vs Heap:</strong><br>
+              • <strong>Stack</strong> — memória rápida, organizada, para valores simples (numbers, booleans)<br>
+              • <strong>Heap</strong> — memória maior, para objetos e arrays (o JS guarda o endereço na stack, o valor no heap)<br><br>
+              Entender isso explica por que <code style="background:var(--surf);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:.73rem">let a = b</code> copia o valor, mas <code style="background:var(--surf);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:.73rem">let a = obj</code> copia apenas a referência.
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Teste: let a = 5; let b = a; b = 10; console.log(a). Explique o resultado.</div>
+              <div class="ex" data-n="2.">Teste: let a = {x:1}; let b = a; b.x = 99; console.log(a.x). Por que a.x mudou?</div>
+              <div class="ex" data-n="3.">Clone um objeto sem referenciar o original usando spread. Mude o clone e confirme que o original não mudou.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=fD0t_DKREbE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span>▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Stack e Heap em JavaScript (Akita)</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Algoritmo passo a passo -->
+        <div class="acc-item fase-g">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name" style="color:var(--text)">🪜 O que é um Algoritmo — Do Zero</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain" style="border-color:var(--g)">
+              <strong>Algoritmo é uma sequência finita de passos bem definidos para resolver um problema.</strong> Todo programa de computador é um algoritmo. A diferença entre um programador bom e ruim muitas vezes está apenas em saber criar algoritmos eficientes.<br><br>
+              Um bom algoritmo tem 3 características:<br>
+              • <strong>Finito</strong> — termina em algum momento<br>
+              • <strong>Determinístico</strong> — sempre dá o mesmo resultado para a mesma entrada<br>
+              • <strong>Eficiente</strong> — resolve o problema sem desperdiçar tempo/memória<br><br>
+              <strong>Exemplo prático:</strong> o algoritmo para fazer um sanduíche:<br>
+              1. Pegue o pão<br>
+              2. Abra o pão ao meio<br>
+              3. Passe a maionese na parte de baixo<br>
+              4. Coloque o presunto<br>
+              5. Feche o pão<br><br>
+              Parece óbvio, mas essa precisão exata é o que o computador precisa.
+            </p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Escreva o algoritmo (em português mesmo) para trocar o pneu de um carro — seja preciso como um computador.</div>
+              <div class="ex" data-n="2.">Escreva o algoritmo para encontrar o maior número em uma lista de 5 números sem usar computador.</div>
+              <div class="ex" data-n="3.">Escreva o algoritmo para ordenar 5 cartas de baralho do menor para o maior — descreva cada comparação.</div>
+            </div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=8mei6uVttho" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem"><span>▶</span> <span style="text-decoration:underline;text-underline-offset:2px">O que é um Algoritmo (Curso em Vídeo - Gustavo Guanabara)</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- fim grid -->
+
+      <!-- Recursos de lógica -->
+      <div style="margin-top:1.5rem;background:var(--surf);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem">
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--g);letter-spacing:.2em;margin-bottom:1rem">// MATERIAIS GRATUITOS PARA FORTALECER A LÓGICA</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9rem">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">📺 Curso em Vídeo — Lógica</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">O professor Gustavo Guanabara explica lógica do absoluto zero. Em português, gratuito e muito didático.</div>
+            <a href="https://www.cursoemvideo.com/curso/curso-de-logica-de-programacao/" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">cursoemvideo.com →</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">📺 Playlist Lógica — Univesp</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Aulas universitárias de lógica de programação, algoritmos e estruturas de dados. Gratuito no YouTube.</div>
+            <a href="https://www.youtube.com/playlist?list=PLxI8Can9yAHf8k8LrUePyj0y3lLpigGcl" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">YouTube Univesp →</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">🎮 CS Unplugged</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Atividades para aprender ciência da computação SEM computador. Lógica, binário e algoritmos de forma lúdica.</div>
+            <a href="https://csunplugged.org/pt-br/" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">csunplugged.org →</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">🏋️ Beecrowd — Nível 1</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Plataforma brasileira de desafios. Comece pelos de nível 1 — são de lógica pura. 1 por dia.</div>
+            <a href="https://www.beecrowd.com.br/judge/pt/categories" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">beecrowd.com.br →</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">🌐 Visualgo.net</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Visualize algoritmos rodando em tempo real — veja cada passo de sorting, busca e estruturas de dados.</div>
+            <a href="https://visualgo.net/pt" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">visualgo.net →</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.1rem">
+            <div style="font-weight:700;font-size:.85rem;margin-bottom:.25rem">📱 Coding Patterns</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-bottom:.4rem">Aprenda os padrões de resolução de problemas: sliding window, two pointers, BFS, DFS, backtracking.</div>
+            <a href="https://neetcode.io/roadmap" target="_blank" style="font-family:var(--mono);font-size:.6rem;color:var(--g);text-decoration:none">neetcode.io →</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fim body -->
+  </div><!-- fim card -->
+
+  <!-- FASE 1 -->
+  <div class="fase fase-g">
+    <div class="fase-head">
+      <div><div class="fase-title">Lógica de Programação</div><div class="fase-time">⏱ 4–6 semanas · Clique nos tópicos para ver explicação e exercícios</div></div>
+      <span class="badge bg-g">FASE 01</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Variáveis e Tipos de Dados</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Variáveis são <strong>caixas na memória com um nome</strong>. Você guarda dados nelas para usar depois. Em JavaScript moderno usamos <strong>const</strong> (valor que não muda) e <strong>let</strong> (valor que pode mudar). Os tipos básicos são: string (texto), number (número), boolean (true/false), null e undefined.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Calcule a área de triângulo, círculo e retângulo com variáveis e fórmulas. Exiba os resultados.</div>
+              <div class="ex" data-n="2.">Converta temperatura: peça Celsius, calcule Fahrenheit e Kelvin e exiba os três valores.</div>
+              <div class="ex" data-n="3.">Troque o valor de duas variáveis SEM usar uma terceira variável auxiliar.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Vbabsye7mWo" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Variáveis em JavaScript (Código Fonte TV)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Condicionais (if / else / switch)</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Condicionais fazem seu programa <strong>tomar decisões</strong>. "Se isso for verdade, faça X. Senão, faça Y." O <strong>if/else</strong> é para condições, o <strong>switch</strong> é para múltiplos casos de um mesmo valor, e o <strong>ternário</strong> é um if compacto em uma linha.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Calculadora de IMC: peça peso e altura, calcule e exiba: Abaixo do peso / Normal / Sobrepeso / Obeso.</div>
+              <div class="ex" data-n="2.">Calculadora de imposto: até R$2k isento, até R$3k 7.5%, até R$4.5k 15%, acima 22.5%.</div>
+              <div class="ex" data-n="3.">Dado um número 1 a 7, retorne o dia da semana usando switch. Depois refaça com ternário.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=6lU60BQ3ggI" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">If/Else e Switch em JS (Curso em Vídeo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Loops (for, while, do-while)</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Loops executam um bloco de código <strong>várias vezes</strong> sem repetir o código. O <strong>for</strong> é quando você sabe quantas vezes vai repetir. O <strong>while</strong> é quando não sabe — repete enquanto a condição for verdadeira. O <strong>do-while</strong> executa pelo menos uma vez antes de verificar.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Imprima a tabuada de 1 a 10 com loops aninhados no formato "3 x 4 = 12".</div>
+              <div class="ex" data-n="2.">Imprima todos os números primos de 1 a 100 usando loop e verificação de divisores.</div>
+              <div class="ex" data-n="3.">Padrão de asteriscos: imprima triângulo crescente de 1 a N linhas. Ex (N=4): *, **, ***, ****.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=NfHVPEzo5Ik" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Loops em JavaScript (Rocketseat)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Funções e Escopo</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Funções são <strong>blocos de código reutilizáveis</strong>. Você escreve uma vez e chama quando quiser. Escopo define onde uma variável existe — variáveis declaradas dentro de uma função não existem fora dela. Isso evita conflitos e mantém o código organizado.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Implemente Math.max, Math.min e Math.abs do zero sem usar os métodos nativos.</div>
+              <div class="ex" data-n="2.">Crie isPalindrome(str) que funcione com frases (ignore espaços, vírgulas e maiúsculas).</div>
+              <div class="ex" data-n="3.">Função que verifica se um número é perfeito (soma dos divisores = ele mesmo). Ex: 6 = 1+2+3.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=1k6o0qZxzQ0" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Funções e Escopo em JS (Filipe Deschamps)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Arrays e Objetos</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Arrays</strong> são listas ordenadas de valores: [1, 2, 3]. Você acessa pelo índice (começa em 0). <strong>Objetos</strong> são coleções de pares chave-valor: {nome: "Ana", idade: 15}. São a base de tudo no JavaScript — a maioria dos dados do mundo real vem como objetos.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Dado array de notas: calcule média, mediana, maior e menor sem usar métodos nativos.</div>
+              <div class="ex" data-n="2.">Array de alunos [{nome, nota}]: filtre aprovados (nota ≥ 7) e ordene por nota decrescente.</div>
+              <div class="ex" data-n="3.">Remova duplicatas de um array sem usar Set — só com loops e condicionais.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=JDt2mfZeYvs" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Arrays e Objetos em JS (Matheus Battisti)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Recursão</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Recursão é quando uma <strong>função chama a si mesma</strong> para resolver uma versão menor do mesmo problema. É como se a função dividisse o problema em pedaços menores até chegar num caso tão simples que dá pra resolver direto — esse é o <strong>caso base</strong>. Sem caso base, a recursão nunca para.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Fatorial recursivo E iterativo. Compare resultados para n=10. Qual você prefere ler?</div>
+              <div class="ex" data-n="2.">Fibonacci com memoização — calcule fib(50) e veja que é instantâneo com cache.</div>
+              <div class="ex" data-n="3.">Torre de Hanói para N=3 discos: imprima cada movimento em "Mova disco X do pino A para o pino C".</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=HtSuA80QTyo" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Recursão explicada do zero (Código Fonte TV)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Busca e Ordenação básica</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Busca linear</strong> percorre o array do início ao fim — simples mas lento para arrays grandes. <strong>Busca binária</strong> divide o array ao meio a cada passo — muito mais rápida, mas exige que o array esteja ordenado. <strong>Bubble Sort</strong> é o algoritmo de ordenação mais simples: compara dois elementos adjacentes e troca se estiver errado.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Busca linear: encontre um elemento e retorne o índice. Retorne -1 se não existir.</div>
+              <div class="ex" data-n="2.">Busca binária do zero. Compare o número de iterações com a busca linear para 1000 elementos.</div>
+              <div class="ex" data-n="3.">Bubble Sort: ordene array de strings por ordem alfabética sem usar .sort().</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=o4bAoo_gFBU" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Algoritmos de Ordenação (Coding with John)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)">
+            <span class="acc-name">Big O — Complexidade de Algoritmos</span>
+            <span class="acc-arrow">▾</span>
+          </button>
+          <div class="acc-body">
+            <p class="acc-explain">Big O mede <strong>como o tempo do algoritmo cresce</strong> conforme a entrada fica maior. Não é sobre tempo real — é sobre a taxa de crescimento. O(1) significa sempre o mesmo tempo. O(n) significa proporcional ao tamanho. O(n²) significa que se dobrar a entrada, o tempo quadruplica. Sempre busque o menor Big O possível.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Classifique 5 funções suas com Big O correto: O(1), O(log n), O(n), O(n log n) ou O(n²).</div>
+              <div class="ex" data-n="2.">Reescreva uma função com dois loops aninhados (O(n²)) para O(n) usando um objeto auxiliar.</div>
+              <div class="ex" data-n="3.">Explique em português por que busca binária é O(log n) desenhando a árvore de chamadas no papel.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=BgLTDT03QtU" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Big O Notation explicado (NeetCode)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">javascript.info/pt</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Tutorial completo em português. Leia do capítulo 1 ao 6 nesta fase. É o melhor recurso gratuito em PT.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Livro Iepsen (ver seção Livros)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Lógica e Algoritmos com JS — leitura principal desta fase. Link gratuito disponível na seção Livros abaixo.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Beecrowd — beecrowd.com.br</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Plataforma brasileira de desafios. 1 por dia na categoria "Iniciante". Consistência vale mais que maratona.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">PDFs desta fase</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Apostila Fase 1 + Livro completo de 13 capítulos gerado especialmente para este curso. Baixe abaixo.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pdf-strip">
+      <span class="pdf-lbl">📄 Apostila Fase 1 — variáveis, loops, funções, recursão e Big O</span>
+      <a class="pdf-btn" href="fase1-logica-programacao.pdf" download>⬇ Baixar PDF</a>
+      <a class="pdf-btn purple" href="livro-logica-algoritmos-javascript.pdf" download>📗 Livro Completo</a>
+    </div>
+  </div>
+
+  <!-- FASE 2 -->
+  <div class="fase fase-o">
+    <div class="fase-head">
+      <div><div class="fase-title">JavaScript Intermediário</div><div class="fase-time">⏱ 4–6 semanas · Clique nos tópicos para ver explicação e exercícios</div></div>
+      <span class="badge bg-o">FASE 02</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Arrow Functions</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Arrow functions são uma <strong>forma mais curta de escrever funções</strong>. <code style="background:var(--surf);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:.75rem">const soma = (a, b) => a + b</code>. A diferença principal é o comportamento do <strong>this</strong> — arrow functions não têm seu próprio this, o que evita um bug clássico do JS.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Reescreva 5 funções clássicas como arrow functions com implicit return (sem chaves e sem return).</div>
+              <div class="ex" data-n="2.">Mostre com um exemplo prático a diferença de this entre function normal e arrow function.</div>
+              <div class="ex" data-n="3.">Compose(f,g,h)(x): aplica h(x), depois g, depois f. Implemente com arrow functions.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=n2o_1sMBOkk" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Arrow Functions em JS (Rocketseat)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Destructuring e Spread/Rest</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Destructuring</strong> extrai valores de arrays/objetos em variáveis numa linha só: <code style="background:var(--surf);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:.75rem">const {nome, idade} = usuario</code>. <strong>Spread (...)</strong> expande um array/objeto: <code style="background:var(--surf);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:.75rem">[...arr1, ...arr2]</code>. <strong>Rest (...)</strong> coleta o que sobrou em uma variável.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Desestruture [lat, lng, alt] com renomeação e valor padrão para altitude.</div>
+              <div class="ex" data-n="2.">Mescle dois objetos de configuração, onde o segundo sobrescreve as chaves iguais do primeiro.</div>
+              <div class="ex" data-n="3.">Função somar(...nums) que aceita qualquer quantidade de argumentos e soma todos.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=NIq3qLaHCIs" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Destructuring e Spread (Fireship)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Map, Filter e Reduce</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Os três mais importantes de array. <strong>map</strong> transforma cada elemento retornando um novo array. <strong>filter</strong> filtra elementos que passam num teste retornando um novo array. <strong>reduce</strong> reduz o array a um único valor (soma, objeto, etc). Nenhum modifica o array original — são funções puras.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Implemente seu próprio Array.map e Array.filter como funções puras sem usar os nativos.</div>
+              <div class="ex" data-n="2.">Array de pedidos [{produto, qtd, preco}]: calcule o total da compra com reduce.</div>
+              <div class="ex" data-n="3.">Encadeie: filtre produtos acima de R$50, aplique 10% de desconto e some o total final.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=myBgx9O79xk" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Map Filter Reduce explicados (Akita)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Promises e Async/Await</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">JS é assíncrono — pode fazer várias coisas "ao mesmo tempo" sem travar. <strong>Promise</strong> representa um valor que ainda vai chegar (como esperar a resposta de uma API). <strong>async/await</strong> é açúcar sintático que torna o código assíncrono <em>parecido</em> com síncrono — muito mais legível que .then/.catch.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Promise de delay(ms): resolve após ms milissegundos. Encadeie 3 delays sequenciais.</div>
+              <div class="ex" data-n="2.">Busque 3 usuários da API JSONPlaceholder em paralelo com Promise.all e exiba os nomes.</div>
+              <div class="ex" data-n="3.">Implemente retry(fn, n): tenta executar uma Promise n vezes antes de rejeitar definitivamente.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=q28lfkBd9F4" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Async/Await do zero (Rocketseat)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Classes e OOP</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">OOP (Programação Orientada a Objetos) organiza o código em <strong>objetos</strong> que têm dados e comportamentos. <strong>Classes</strong> são moldes para criar objetos. <strong>Herança</strong> permite que uma classe filha herde tudo da classe pai. <strong>Encapsulamento</strong> esconde dados internos com propriedades privadas (#).</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Hierarquia: Animal → Cachorro → Labrador. Herança, polimorfismo e método toString() em cada um.</div>
+              <div class="ex" data-n="2.">Classe ContaBancaria com saldo privado (#saldo), depositar, sacar (não permite saldo negativo) e extrato.</div>
+              <div class="ex" data-n="3.">Singleton: classe Config que só pode ter uma instância — segunda chamada retorna a mesma.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=PFmuCDHHpwk" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">OOP em JavaScript (Coding with John)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Closures</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Closure é quando uma função <strong>lembra do escopo onde foi criada</strong>, mesmo depois que aquele escopo acabou. É como se a função carregasse uma "mochila" com as variáveis do ambiente onde nasceu. É a base de contadores com estado privado, memoização, debounce, currying e módulos.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">criarContador(inicio): retorna objeto com {inc, dec, reset, valor} — estado privado via closure.</div>
+              <div class="ex" data-n="2.">memoize(fn): função que cacheia resultados usando closure + Map. Teste com Fibonacci.</div>
+              <div class="ex" data-n="3.">once(fn): retorna função que só executa na primeira chamada e depois retorna o mesmo valor.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=vKJpN5FAeF4" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Closures em JS — entenda de vez (Fireship)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Event Loop e Assincronismo</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">O Event Loop é o mecanismo que faz o JS parecer fazer várias coisas ao mesmo tempo mesmo sendo single-thread. Existe uma <strong>Call Stack</strong> (código síncrono), uma <strong>Microtask Queue</strong> (Promises) e uma <strong>Macrotask Queue</strong> (setTimeout). Microtasks sempre rodam antes das macrotasks.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Preveja e explique a ordem de execução: setTimeout(0), Promise.resolve e código síncrono misturados.</div>
+              <div class="ex" data-n="2.">debounce(fn, ms): executa fn apenas depois de ms ms sem novas chamadas. Use em campo de busca.</div>
+              <div class="ex" data-n="3.">throttle(fn, ms): fn só pode ser chamada 1x a cada ms ms, descarta chamadas extras.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Event Loop explicado visualmente (JSConf)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">You Don't Know JS Yet (grátis)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">github.com/getify/You-Dont-Know-JS — série de 6 livros gratuitos. Leia os volumes "Get Started" e "Scope & Closures" nesta fase.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Eloquent JavaScript (grátis)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">eloquentjavascript.net — capítulos 4, 5, 6 e 11. PDF gratuito na seção Livros.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Apostila PDF desta fase</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Closures, async/await, OOP, map/filter/reduce com exemplos e código real comentado. Baixe abaixo.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pdf-strip o">
+      <span class="pdf-lbl">📄 Apostila Fase 2 — closures, async/await, OOP, map/filter/reduce</span>
+      <a class="pdf-btn" href="fase2-javascript-intermediario.pdf" download>⬇ Baixar PDF</a>
+    </div>
+  </div>
+
+  <!-- FASE 3 -->
+  <div class="fase fase-p">
+    <div class="fase-head">
+      <div><div class="fase-title">Estruturas de Dados e Algoritmos</div><div class="fase-time">⏱ 3–4 semanas · Cobrado em toda entrevista técnica séria</div></div>
+      <span class="badge bg-p">FASE 03</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Pilha (Stack — LIFO)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Stack funciona como uma <strong>pilha de pratos</strong> — o último que você coloca é o primeiro que você tira. LIFO = Last In, First Out. Exemplos reais: o botão "desfazer" (Ctrl+Z) do editor de texto, o histórico de navegação do browser, e a própria Call Stack do JavaScript.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Implemente Stack com push, pop, peek, isEmpty e size usando array privado (#items).</div>
+              <div class="ex" data-n="2.">Use Stack para verificar se (), [] e {} estão balanceados numa string. "(([]))" → true, "([)]" → false.</div>
+              <div class="ex" data-n="3.">Converta decimal para binário usando Stack (divisões por 2, coloque o resto na stack e desempilhe).</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=FNZ5o9S9prU" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Stack Data Structure (CS Dojo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Fila (Queue — FIFO)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Queue funciona como uma <strong>fila de banco</strong> — o primeiro que chegou é o primeiro a ser atendido. FIFO = First In, First Out. Usada em: filas de processamento de mensagens (RabbitMQ, Kafka), BFS em grafos, e sistemas de impressão.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Implemente Queue com enqueue, dequeue, front, isEmpty e size.</div>
+              <div class="ex" data-n="2.">Fila de banco VIP: clientes VIP entram na frente, normais no fim. Use duas queues.</div>
+              <div class="ex" data-n="3.">Hot Potato: N pessoas em círculo, elimine a k-ésima repetidamente até sobrar 1. Use Queue.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=PjQdvpWfCmE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Queue Data Structure (CS Dojo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Hash Map</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">HashMap é uma estrutura que guarda pares <strong>chave → valor</strong> com acesso em O(1). Imagina uma gaveta com etiquetas — você não precisa abrir todas, vai direto na etiqueta. Em JS, use <code style="background:var(--surf);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:.74rem">Map</code> ou objeto simples. É a estrutura que mais aparece em desafios de otimização.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Two Sum em O(n): índices de dois números que somam target. Resolva com HashMap, não com loop duplo.</div>
+              <div class="ex" data-n="2.">Frequência de palavras: texto → Map com contagem de cada palavra, ordenada do mais para o menos frequente.</div>
+              <div class="ex" data-n="3.">Primeiro caractere não repetido. "abacaba" → 'c'. Resolva em O(n) com Map.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=sfWyugl4JWA" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Hash Tables explicadas (CS Dojo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Árvore Binária de Busca (BST)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">BST é uma estrutura em que cada nó tem no máximo 2 filhos. A regra: <strong>esquerda sempre menor, direita sempre maior</strong>. Isso torna busca, inserção e remoção O(log n) — se a árvore estiver balanceada. É como um dicionário ordenado em estrutura de árvore.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Implemente BST com insert, search e in-order traversal (resultado deve sair em ordem crescente).</div>
+              <div class="ex" data-n="2.">Altura da árvore: retorne o número máximo de níveis da BST usando recursão.</div>
+              <div class="ex" data-n="3.">Verifique se a BST está balanceada (diferença de altura entre subárvores esq e dir ≤ 1).</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=6JeuJRqKJrI" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Binary Search Tree (CS Dojo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Merge Sort e Quick Sort</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Merge Sort</strong> divide o array ao meio, ordena cada metade recursivamente e as mescla — sempre O(n log n). <strong>Quick Sort</strong> escolhe um pivô, coloca menores à esquerda e maiores à direita recursivamente — O(n log n) na média. Ambos são infinitamente mais eficientes que Bubble Sort para arrays grandes.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Merge Sort do zero. Ordene array de 10.000 números e meça o tempo com console.time.</div>
+              <div class="ex" data-n="2.">Quick Sort do zero. Compare o tempo com Merge Sort no mesmo array.</div>
+              <div class="ex" data-n="3.">Ordene array de objetos [{nome, idade}] por idade crescente usando Merge Sort.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=es2T6KY45cA" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Merge Sort vs Quick Sort (CS Dojo)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">BFS e DFS em Grafos</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain"><strong>Grafo</strong> é uma estrutura com nós (vértices) e conexões (arestas). <strong>BFS</strong> (Busca em Largura) usa uma Queue e visita nível por nível — ótimo para menor caminho. <strong>DFS</strong> (Busca em Profundidade) usa uma Stack (ou recursão) e vai fundo em cada caminho antes de voltar.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">BFS: encontre o menor caminho entre dois nós de um grafo não-ponderado representado como lista de adjacência.</div>
+              <div class="ex" data-n="2.">DFS: verifique se existe caminho entre dois nós do grafo. Retorne true/false.</div>
+              <div class="ex" data-n="3.">Detecção de ciclo: use DFS para verificar se um grafo direcionado tem ciclos.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=tWVWeAqZ0WU" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">BFS e DFS explicados (NeetCode)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">LeetCode — leetcode.com</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Resolva Easy e Medium de Array, Hash Table e String. Foco em entender a solução, não só fazê-la passar. Leia a editorial depois.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">visualgo.net</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Visualize animações de cada estrutura e algoritmo. Imprescindível para entender BST, BFS e DFS visualmente.</p></div>
+        </div>
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Apostila PDF desta fase</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body"><p class="acc-explain">Stack, Queue, HashMap, BST e BFS/DFS implementados em JS com exemplos e explicações. Baixe abaixo.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="pdf-strip p">
+      <span class="pdf-lbl">📄 Apostila Fase 3 — Stack, Queue, HashMap, BST, BFS/DFS em JS</span>
+      <a class="pdf-btn" href="fase3-estruturas-de-dados.pdf" download>⬇ Baixar PDF</a>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 02 BACK-END -->
+<div class="wrap" id="backend">
+  <div class="eye o">// 02 — BACK-END</div>
+  <h2 class="sec-title">Node.js, APIs &amp; Banco de Dados</h2>
+  <p class="sec-sub">Aqui mora o coração do desenvolvimento. É onde você vai brilhar.</p>
+
+  <!-- FASE 4 -->
+  <div class="fase fase-g">
+    <div class="fase-head">
+      <div><div class="fase-title">Node.js &amp; APIs REST com Express</div><div class="fase-time">⏱ 5–7 semanas</div></div>
+      <span class="badge bg-g">FASE 04</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Node.js básico (fs, http, path)</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Node.js é JavaScript <strong>fora do navegador</strong>. Com ele você cria servidores, lê arquivos, acessa banco de dados. Usa o motor V8 do Chrome e é assíncrono por natureza — não bloqueia enquanto espera resposta do banco ou do disco.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Servidor HTTP puro (sem Express) que lê um arquivo JSON e retorna como resposta HTTP.</div>
+              <div class="ex" data-n="2.">CLI que lê um diretório e lista todos os arquivos .js com tamanho em KB usando fs e path.</div>
+              <div class="ex" data-n="3.">Watcher: detecte mudanças em um arquivo .txt com fs.watch e imprima o novo conteúdo.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=DiXbJL3iWVs" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Node.js do zero (Rocketseat)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Express.js — Rotas e Middlewares</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Express é o <strong>framework web mais popular</strong> do Node.js. Simplifica criação de rotas (URLs que a API responde) e middlewares (funções que rodam entre a requisição e a resposta). Middleware é um dos conceitos mais poderosos do Express.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">CRUD completo de produtos (dados em array na memória) com todos os verbos HTTP e status codes corretos.</div>
+              <div class="ex" data-n="2.">Middleware de log: registre método, path, status e tempo de resposta de cada requisição.</div>
+              <div class="ex" data-n="3.">Middleware de autenticação com API Key no header — retorna 401 se ausente ou inválida.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=L72fhGm1tfE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Express.js do zero (Traversy Media)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">REST API — Boas Práticas</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">REST é um conjunto de <strong>convenções para criar APIs HTTP</strong>. Os verbos têm significados: GET busca, POST cria, PUT/PATCH atualiza, DELETE remove. Os status codes comunicam o resultado: 200 OK, 201 criado, 400 erro do cliente, 401 não autenticado, 404 não encontrado, 500 erro do servidor.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Adicione status codes corretos (201, 400, 404, 409, 500) com mensagens de erro padronizadas no formato {error: "..."}.</div>
+              <div class="ex" data-n="2.">Paginação: GET /produtos?page=2&limit=10 com metadados (total, pages, hasNext, hasPrev).</div>
+              <div class="ex" data-n="3.">Versione: /api/v1/produtos. Prepare a estrutura para /api/v2 futuramente sem quebrar a v1.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=SLwpqD8n3d0" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">REST API Design (Traversy Media)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Validação com Zod</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Zod é uma biblioteca de <strong>validação de dados em tempo real</strong>. Você define um schema (regras) e valida qualquer dado contra ele. Se algo vier errado do front-end (campo em branco, tipo errado, email inválido), Zod rejeita antes de você tentar salvar no banco.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Schema de produto: nome (min 3 chars), preço (positivo), categoria (enum de valores fixos).</div>
+              <div class="ex" data-n="2.">Schema de usuário: email válido, senha (min 8, 1 maiúscula, 1 número) e confirmação igual à senha.</div>
+              <div class="ex" data-n="3.">Middleware genérico validate(schema) que qualquer rota pode usar e retorna erros formatados.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=L6BE-U3oy80" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Zod em 10 minutos (Matt Pocock)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Estrutura Profissional de Projeto</span><span class="acc-arrow">▾</span></button>
+          <div class="acc-body">
+            <p class="acc-explain">Projeto profissional separa responsabilidades em camadas. <strong>Routes</strong> define as URLs. <strong>Controllers</strong> recebe a requisição e chama o service. <strong>Services</strong> contém a lógica de negócio. <strong>Repository</strong> acessa o banco. Cada camada conhece só a de baixo — facilita testes e manutenção.</p>
+            <div class="exs-lbl">// 3 exercícios</div>
+            <div class="exs">
+              <div class="ex" data-n="1.">Refatore sua API em controllers/, routes/, services/ e middlewares/ separados.</div>
+              <div class="ex" data-n="2.">Adicione tratamento global de erros com middleware de erro (4 parâmetros) no final do app.js.</div>
+              <div class="ex" data-n="3.">Documente sua API com Swagger/OpenAPI — gere a página /docs automaticamente.</div>
+            </div>
+          
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=DiXbJL3iWVs" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Arquitetura MVC em Node.js (Rocketseat)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">nodejs.org/docs</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Documentação oficial do Node.js. Leia sobre fs, path, http e os módulos built-in na seção "Guides".</p></div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">expressjs.com/guide</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Guia oficial do Express. Tem seção específica de middlewares, roteamento e tratamento de erros.</p></div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Apostila PDF desta fase</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Node.js, Express, middlewares, REST e estrutura profissional de projeto com exemplos reais.</p></div></div>
+      </div>
+    </div>
+    <div class="pdf-strip">
+      <span class="pdf-lbl">📄 Apostila Fase 4 — Node.js, Express, middlewares, REST e estrutura profissional</span>
+      <a class="pdf-btn" href="fase4-nodejs-api-rest.pdf" download>⬇ Baixar PDF</a>
+    </div>
+  </div>
+
+  <!-- FASE 5 BANCO (resumida) -->
+  <div class="fase fase-o">
+    <div class="fase-head">
+      <div><div class="fase-title">Banco de Dados — SQL, NoSQL &amp; Prisma</div><div class="fase-time">⏱ 4–6 semanas</div></div>
+      <span class="badge bg-o">FASE 05</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">SQL básico</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">SQL é a linguagem para falar com bancos relacionais (PostgreSQL, MySQL). SELECT busca, INSERT cria, UPDATE modifica, DELETE remove. JOIN combina tabelas. É uma das habilidades mais cobradas em vagas back-end.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">10 queries no SQLiteOnline: WHERE, ORDER BY, LIMIT, GROUP BY e HAVING em tabela de produtos.</div><div class="ex" data-n="2.">Agregações: COUNT, SUM, AVG, MAX, MIN — calcule estatísticas de uma tabela de vendas.</div><div class="ex" data-n="3.">INNER e LEFT JOIN: posts com autor e lista de usuários mesmo sem posts.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Ofktsne-utM" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">SQL do zero em 1 hora (Curso em Vídeo)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Prisma ORM</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Prisma é um ORM moderno que gera um client tipado a partir do seu schema. Você escreve o modelo em Prisma schema, roda a migration e tem um client JS/TS com autocomplete para acessar o banco sem escrever SQL.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Modele User, Post e Comment com relações 1:N e N:N. Faça CRUD completo via Prisma Client.</div><div class="ex" data-n="2.">Migration: adicione campo "bio" em User sem perder dados existentes.</div><div class="ex" data-n="3.">Script seed: popule com 50 usuários, 200 posts e 500 comentários usando faker.js.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=RebA5J-rlwg" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Prisma do zero (Rocketseat)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Transactions</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Transaction agrupa várias operações em banco em um bloco atômico — ou todas executam, ou nenhuma. Essencial para operações críticas como transferência bancária ou checkout de pedido.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Transferência: debita conta A e credita conta B em uma transaction. Se falhar, rollback total.</div><div class="ex" data-n="2.">Checkout: crie pedido e decremente estoque em uma única transaction Prisma.</div><div class="ex" data-n="3.">Simule falha no meio da transaction e confirme que NENHUMA operação foi salva no banco.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=P80Js_qClUE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Database Transactions explicadas (Fireship)</span>
+              </a>
+            </div>
+          </div></div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">sqlbolt.com</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Aprenda SQL interativamente do zero. Gratuito e gamificado. É o melhor ponto de partida.</p></div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">prisma.io/docs</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Documentação oficial do Prisma. O quickstart te coloca no ar em 15 minutos com Node.js.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FASE 6 AUTH (resumida) -->
+  <div class="fase fase-p">
+    <div class="fase-head">
+      <div><div class="fase-title">Autenticação &amp; Segurança</div><div class="fase-time">⏱ 3–4 semanas</div></div>
+      <span class="badge bg-p">FASE 06</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">JWT — JSON Web Token</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">JWT é um token assinado digitalmente que prova a identidade do usuário sem precisar consultar o banco a cada requisição. Tem 3 partes: header (algoritmo), payload (dados do usuário) e signature (assinatura). Qualquer servidor com a chave secreta pode validar.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Login que retorna access token (15min) + refresh token (7d) armazenado em cookie httpOnly.</div><div class="ex" data-n="2.">POST /auth/refresh: valide o refresh token e emita um novo access token.</div><div class="ex" data-n="3.">POST /auth/logout: invalide o refresh token no banco (blacklist).</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=mbsmsi7l3r4" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">JWT em Node.js (Traversy Media)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Bcrypt + Roles + Rate Limiting</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Nunca salve senha em texto puro. Bcrypt aplica hash com salt aleatório — mesmo que o banco vaze, as senhas ficam protegidas. Roles definem o que cada usuário pode fazer. Rate Limiting impede ataques de força bruta.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Registro com hash bcrypt (saltRounds=12). Login com compare — nunca compare strings diretamente.</div><div class="ex" data-n="2.">Middleware authorize('ADMIN'): retorna 403 se o usuário não tiver a role necessária.</div><div class="ex" data-n="3.">Rate limit no login: máximo 5 tentativas por minuto por IP com express-rate-limit.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Ud5xKCYQTjM" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Bcrypt e Autenticação segura (Fireship)</span>
+              </a>
+            </div>
+          </div></div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">jwt.io + owasp.org/Top10</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">jwt.io: debugger visual do JWT. OWASP Top 10: as vulnerabilidades mais comuns em aplicações web. Leia e aplique as defesas na sua API.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 03 DOCKER -->
+<div class="wrap" id="docker">
+  <div class="eye b">// 03 — INFRAESTRUTURA</div>
+  <h2 class="sec-title">Docker &amp; Deploy</h2>
+  <p class="sec-sub">Containerize sua API. Nunca mais "na minha máquina funciona".</p>
+  <div class="fase fase-b">
+    <div class="fase-head">
+      <div><div class="fase-title">Docker, Docker Compose e Deploy</div><div class="fase-time">⏱ 3–5 semanas · Obrigatório no mercado</div></div>
+      <span class="badge bg-b">FASE 07</span>
+    </div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Imagens e Containers</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Uma <strong>imagem</strong> é a receita (o que vai dentro), um <strong>container</strong> é a instância rodando (o bolo pronto). Você pode rodar várias instâncias da mesma imagem simultaneamente. Containers são isolados entre si e do sistema operacional — o que roda dentro não afeta nada fora.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Rode PostgreSQL local com docker run, conecte com psql e crie uma tabela.</div><div class="ex" data-n="2.">Inspecione uma imagem com docker inspect e docker history. Entenda as camadas.</div><div class="ex" data-n="3.">Rode o mesmo projeto em Node.js 18 e Node.js 20 usando imagens diferentes, lado a lado.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Gjnup-PuquQ" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Docker em 100 segundos (Fireship)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Dockerfile</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Dockerfile é o arquivo de instruções para construir uma imagem. Cada instrução cria uma camada — o Docker faz cache de camadas que não mudaram, tornando builds repetidos muito rápidos. A ordem importa: coloque o que muda menos (package.json) antes do que muda mais (código).</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Escreva Dockerfile para sua API Node.js. Build e rode o container mapeando a porta 3000.</div><div class="ex" data-n="2.">Multi-stage build: stage de build (instala e compila) + stage de produção (só o necessário).</div><div class="ex" data-n="3.">Otimize o .dockerignore. Compare tamanho da imagem antes e depois de excluir node_modules.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=3c-iBn73dDE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Dockerfile passo a passo (TechWorld with Nana)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Docker Compose</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Compose orquestra múltiplos containers com um único arquivo YAML. Você define todos os serviços (API, banco, cache) e suas dependências — um único <code style="background:var(--surf);padding:1px 4px;border-radius:3px;font-family:var(--mono);font-size:.74rem">docker compose up</code> sobe tudo de uma vez.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Compose: API + PostgreSQL. Um docker compose up deve subir tudo e a API conectar ao banco.</div><div class="ex" data-n="2.">Adicione healthcheck no banco e depends_on com condition: service_healthy na API.</div><div class="ex" data-n="3.">Crie compose.dev.yml com hot-reload e compose.prod.yml para produção.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=SXwC9fSwct8" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Docker Compose em 10 minutos (TechWorld)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Deploy com Railway e GitHub Actions</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Railway é uma plataforma de deploy com plano gratuito que suporta Node.js, PostgreSQL e Redis. GitHub Actions é CI/CD nativo do GitHub — você define workflows que rodam automaticamente a cada push.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Deploy da sua API no Railway com PostgreSQL e variáveis de ambiente configuradas.</div><div class="ex" data-n="2.">GitHub Actions: workflow que roda testes a cada push e faz deploy automático na branch main.</div><div class="ex" data-n="3.">Configure domínio customizado no Railway e verifique o HTTPS automático.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=bnCOyGaSe84" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Deploy com Railway (Fireship)</span>
+              </a>
+            </div>
+          </div></div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">docs.docker.com/get-started</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Quickstart oficial. O tutorial de Node.js no Docker é excelente e cobre Dockerfile + Compose.</p></div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Apostila PDF desta fase</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Dockerfile comentado linha a linha, Compose com healthcheck, todos os comandos CLI e deploy passo a passo.</p></div></div>
+      </div>
+    </div>
+    <div class="pdf-strip b">
+      <span class="pdf-lbl">📄 Apostila Fase Docker — Dockerfile, Compose, CLI e deploy</span>
+      <a class="pdf-btn" href="fase5-docker.pdf" download>⬇ Baixar PDF</a>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 04 FRONT-END -->
+<div class="wrap" id="frontend">
+  <div class="eye">// 04 — FRONT-END</div>
+  <h2 class="sec-title">HTML, CSS, React &amp; Web Audio</h2>
+  <p class="sec-sub">Saber o front te torna um dev completo. Não precisa ser designer — precisa funcionar.</p>
+  <div class="fase fase-g">
+    <div class="fase-head"><div><div class="fase-title">HTML, CSS &amp; JS no Navegador</div><div class="fase-time">⏱ 4–5 semanas</div></div><span class="badge bg-g">FRONT · A</span></div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">HTML Semântico</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">HTML semântico usa tags com significado (<strong>header, nav, main, section, article, footer</strong>) em vez de divs genéricas. Melhora acessibilidade, SEO e legibilidade. Leitores de tela usam as tags semânticas para navegar a página.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Página de portfólio só com tags semânticas: header, nav, main, section, article, footer.</div><div class="ex" data-n="2.">Formulário de contato acessível com label, fieldset, aria-label e validação nativa HTML.</div><div class="ex" data-n="3.">Verifique com Lighthouse do Chrome. Atinja score ≥90 em acessibilidade.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=7muMGBNTcRs" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">HTML Semântico (Rafaella Ballerini)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">CSS Flexbox e Grid</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain"><strong>Flexbox</strong> organiza elementos em uma direção (linha ou coluna) — ótimo para componentes. <strong>Grid</strong> organiza em duas dimensões (linhas e colunas) — ótimo para layouts de página inteira. Dominar os dois elimina a necessidade de Bootstrap para a maioria dos casos.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Clone o layout do Google só com Flexbox e Grid — sem Bootstrap.</div><div class="ex" data-n="2.">Layout de dashboard: sidebar fixa, header fixo e conteúdo rolável — só CSS Grid.</div><div class="ex" data-n="3.">Card responsivo que vai de 1 coluna (mobile 320px) para 3 colunas (desktop 1440px).</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=KbjLtEgmZ_E" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Flexbox em 15 min (Rafaella Ballerini)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">DOM e Eventos</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">DOM (Document Object Model) é a representação da página HTML em memória que o JS pode manipular. Você pode criar, modificar e remover elementos dinamicamente. Eventos (click, submit, input) permitem reagir à interação do usuário.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">To-Do List: adicionar, completar e deletar tarefas — só HTML, CSS e JS puro.</div><div class="ex" data-n="2.">Event delegation: lista de 1000 itens com apenas 1 listener no pai.</div><div class="ex" data-n="3.">Drag and drop nativo: reordene cards arrastando com mouse/toque.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=IWRS_AM2fiE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">DOM em JavaScript (Curso em Vídeo)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Fetch API e LocalStorage</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Fetch API faz requisições HTTP assíncronas do browser para qualquer API. LocalStorage persiste dados no browser entre sessões. Intersection Observer detecta quando um elemento entra na viewport.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Busque usuários de api.github.com, mostre cards e salve favoritos no LocalStorage.</div><div class="ex" data-n="2.">Infinite scroll: carregue mais itens ao chegar no fim da página com Intersection Observer.</div><div class="ex" data-n="3.">Cache de API: se o dado foi buscado nos últimos 5 min, use LocalStorage ao invés de refetch.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=2vE6A7d8Kfo" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Fetch API e LocalStorage (Filipe Deschamps)</span>
+              </a>
+            </div>
+          </div></div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">developer.mozilla.org</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">MDN é a referência máxima para HTML, CSS e JS no browser. Para qualquer dúvida, vá na MDN antes do Stack Overflow.</p></div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">flexboxfroggy.com + cssgridgarden.com</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">Aprenda Flexbox e Grid jogando. Gratuito e muito eficaz — você pratica enquanto aprende.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="fase fase-o">
+    <div class="fase-head"><div><div class="fase-title">React.js e Next.js</div><div class="fase-time">⏱ 4–6 semanas</div></div><span class="badge bg-o">FRONT · B</span></div>
+    <div class="fase-cols">
+      <div class="fase-col">
+        <div class="col-lbl">// Tópicos — clique para abrir</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">Componentes, Props e State</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">React organiza a UI em <strong>componentes</strong> reutilizáveis — como blocos de Lego. <strong>Props</strong> são dados que o componente pai passa para o filho (somente leitura). <strong>State</strong> é o estado interno do componente — quando muda, o componente re-renderiza automaticamente.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Componente Card reutilizável: título, descrição, cor de borda e ação ao clicar como props.</div><div class="ex" data-n="2.">Contador com useReducer: ações increment, decrement, reset e setTo(n).</div><div class="ex" data-n="3.">Formulário controlado com validação em tempo real — erro aparece enquanto digita.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=FXqX7oof0I4" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">React do zero (Matheus Battisti)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">useEffect e Data Fetching</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">useEffect executa código quando o componente monta, desmonta ou quando dependências mudam. É o lugar certo para buscar dados de API, configurar event listeners e subscrever a WebSockets.</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">Hook useFetch(url) reutilizável: retorna {data, loading, error} para qualquer URL.</div><div class="ex" data-n="2.">Busca com debounce: campo que só dispara a API após 500ms sem digitar.</div><div class="ex" data-n="3.">Cancele o fetch se o componente desmontar antes da resposta (AbortController no cleanup).</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=0ZJgIjIuY7U" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">useEffect explicado (Web Dev Simplified)</span>
+              </a>
+            </div>
+          </div></div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">React Router e Next.js</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">React Router cria navegação SPA (Single Page Application) sem recarregar a página. Next.js adiciona server-side rendering, file-based routing e API Routes — é o React "de produção".</p><div class="exs-lbl">// 3 exercícios</div><div class="exs"><div class="ex" data-n="1.">App com 4 páginas e rota /dashboard protegida (só para autenticados) com React Router.</div><div class="ex" data-n="2.">Next.js: página com getServerSideProps que busca dados no servidor antes de renderizar.</div><div class="ex" data-n="3.">Next.js API Route /api/produtos que conecta ao seu back-end e retorna dados formatados.</div></div>
+            <div style="margin-top:.7rem;padding:.6rem .8rem;background:rgba(248,113,113,.06);border-left:2px solid var(--r);border-radius:0 4px 4px 0;">
+              <div style="font-family:var(--mono);font-size:.55rem;color:var(--r);letter-spacing:.15em;margin-bottom:.3rem">// VÍDEO RECOMENDADO</div>
+              <a href="https://www.youtube.com/watch?v=Y6KDk5iyrYE" target="_blank" style="font-size:.76rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:.5rem">
+                <span style="font-size:.9rem">▶</span> <span style="text-decoration:underline;text-underline-offset:2px">Next.js do zero (Traversy Media)</span>
+              </a>
+            </div>
+          </div></div>
+      </div>
+      <div class="fase-col">
+        <div class="col-lbl">// Onde estudar</div>
+        <div class="acc-item"><button class="acc-btn" onclick="toggle(this)"><span class="acc-name">react.dev + nextjs.org/learn</span><span class="acc-arrow">▾</span></button><div class="acc-body"><p class="acc-explain">react.dev é a documentação oficial do React com tutorial interativo. nextjs.org/learn é o curso oficial gratuito do Next.js cobrindo App Router, data fetching e deploy.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 05 ARQUITETURA -->
+<div class="wrap" id="arquitetura">
+  <div class="eye r">// 05 — ARQUITETURA</div>
+  <h2 class="sec-title">Arquitetura de Projetos</h2>
+  <p class="sec-sub">O que separa código amador de código profissional. Entenda do zero.</p>
+
+  <!-- INTRODUÇÃO DO ZERO -->
+  <div class="arch-intro">
+    <h3>O que é arquitetura de software?</h3>
+    <p>Imagina que você vai construir uma casa. Você não começa colocando tijolos aleatoriamente — primeiro vem o projeto arquitetônico: onde fica cada cômodo, como eles se conectam, onde passam os canos e a fiação.</p>
+    <p><strong>Arquitetura de software é exatamente isso</strong> para o código. É a organização de como as partes do sistema se dividem, o que cada parte faz e como elas se comunicam. Um código sem arquitetura funciona — mas só até um ponto. Quando o projeto cresce, vira uma bagunça impossível de manter.</p>
+    <p>Sem arquitetura, um projeto começa assim: você coloca tudo em um arquivo. Depois dois. Depois dez. Seis meses depois ninguém — nem você — sabe onde está cada coisa. Adicionar uma feature nova quebra três outras. Isso tem nome: <strong>código espaguete</strong>.</p>
+    <p>Com arquitetura, cada coisa tem seu lugar. O arquivo que define rotas não sabe nada do banco de dados. O arquivo de regras de negócio não sabe nada do HTTP. <strong>Separação de responsabilidades</strong> — cada parte faz uma coisa só, e bem.</p>
+    <div class="arch-analogy">
+      <strong>Analogia simples:</strong> pensa numa cozinha profissional. Tem o chef que cria a receita, o cozinheiro que executa, o garçom que serve e o caixa que cobra. Cada um tem sua função. Se o chef fosse até a mesa servir e cobrar, seria um caos. Arquitetura é isso — cada camada tem seu papel.
+    </div>
+  </div>
+
+  <div class="arch-grid">
+
+    <div class="arch-card">
+      <div class="arch-head">
+        <div class="arch-icon">📁</div>
+        <h3>MVC — Model View Controller</h3>
+        <div class="arch-sub">// A mais usada em APIs REST — comece aqui</div>
+      </div>
+      <div class="arch-body">
+        <div class="arch-explain">
+          MVC divide o projeto em <strong>3 camadas</strong> com responsabilidades bem definidas.<br><br>
+          <strong>Model</strong> — são os dados. Define como os dados são estruturados, as regras de validação e como são salvos no banco.<br><br>
+          <strong>View</strong> — em APIs REST, é a resposta JSON que você envia. Em apps com front-end, seria o HTML.<br><br>
+          <strong>Controller</strong> — o intermediário. Recebe a requisição HTTP, chama o Model para buscar/salvar dados, e devolve a View.<br><br>
+          Na prática moderna, adicionamos uma camada de <strong>Service</strong> entre Controller e Model para isolar regras de negócio.
+        </div>
+        <pre>src/
+├── controllers/        ← recebe req, chama service
+│   └── user.controller.js
+├── services/           ← regras de negócio
+│   └── user.service.js
+├── repositories/       ← fala com o banco
+│   └── user.repository.js
+├── routes/             ← define as URLs
+│   └── user.routes.js
+├── middlewares/        ← auth, log, validação
+│   └── auth.middleware.js
+└── app.js              ← junta tudo</pre>
+        <div class="arch-tip"><strong>Regra de ouro:</strong> Controller nunca acessa o banco diretamente. Passa pelo Service, que passa pelo Repository. Assim você pode trocar o banco sem tocar no Controller.</div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="arch-head">
+        <div class="arch-icon">🧩</div>
+        <h3>Feature-Based (por módulo)</h3>
+        <div class="arch-sub">// Melhor para projetos com muitas features</div>
+      </div>
+      <div class="arch-body">
+        <div class="arch-explain">
+          Em vez de agrupar por tipo (todos os controllers juntos, todos os services juntos), você <strong>agrupa por feature</strong>. Tudo relacionado a "auth" fica numa pasta, tudo de "products" em outra.<br><br>
+          <strong>Vantagem enorme:</strong> se você precisar deletar a feature de produtos do projeto, é só deletar a pasta. Nada mais vai quebrar. Em MVC puro, você teria que caçar arquivos em 5 pastas diferentes.
+        </div>
+        <pre>src/
+├── features/
+│   ├── auth/
+│   │   ├── auth.controller.js
+│   │   ├── auth.service.js
+│   │   ├── auth.routes.js
+│   │   └── auth.schema.js
+│   ├── products/
+│   │   ├── products.controller.js
+│   │   └── ...
+│   └── orders/
+│       └── ...
+├── shared/
+│   ├── middlewares/
+│   └── utils/
+└── app.js</pre>
+        <div class="arch-tip"><strong>Use quando:</strong> o projeto tem mais de 3–4 features independentes. Escala bem em equipes grandes — times diferentes cuidam de features diferentes sem conflito.</div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="arch-head">
+        <div class="arch-icon">🧅</div>
+        <h3>Clean Architecture</h3>
+        <div class="arch-sub">// Para projetos complexos e altamente testáveis</div>
+      </div>
+      <div class="arch-body">
+        <div class="arch-explain">
+          Criada pelo Uncle Bob (mesmo do Clean Code). A ideia central é que as <strong>regras de negócio não dependem de nada externo</strong> — nem do banco, nem do framework, nem do HTTP.<br><br>
+          Imagine camadas como cebola: no centro ficam as regras de negócio (entities e use cases). As camadas externas (banco, Express) dependem do centro — nunca o contrário.<br><br>
+          <strong>Resultado:</strong> você pode trocar PostgreSQL por MongoDB, ou Express por Fastify, sem tocar nas regras de negócio. E testar as regras sem precisar subir o servidor.
+        </div>
+        <pre>src/
+├── domain/
+│   ├── entities/     ← classes de negócio puras
+│   └── usecases/     ← regras (sem banco, sem HTTP)
+├── application/
+│   └── interfaces/   ← contratos/interfaces
+├── infrastructure/
+│   ├── database/     ← Prisma, Mongoose
+│   └── http/         ← Express, rotas
+└── main/
+    └── server.js     ← monta tudo</pre>
+        <div class="arch-tip"><strong>Atenção:</strong> Clean Architecture tem uma curva de aprendizado grande. Domine MVC primeiro. Volte aqui quando for construir um projeto sério.</div>
+      </div>
+    </div>
+
+    <div class="arch-card">
+      <div class="arch-head">
+        <div class="arch-icon">⚡</div>
+        <h3>Microservices</h3>
+        <div class="arch-sub">// Para times grandes e sistemas complexos</div>
+      </div>
+      <div class="arch-body">
+        <div class="arch-explain">
+          Microservices divide o sistema em <strong>serviços pequenos e independentes</strong>, cada um com sua responsabilidade específica e seu próprio banco de dados.<br><br>
+          <strong>Comunicação:</strong> os serviços conversam via HTTP (REST ou gRPC) ou via mensageria (RabbitMQ, Kafka). Um API Gateway recebe todas as requisições de fora e distribui para o serviço certo.<br><br>
+          <strong>Importante:</strong> microservices resolve problemas de escala de equipe e de tráfego. Se você está começando, comece com monolito (MVC ou Feature-Based). Migre para micro quando precisar.
+        </div>
+        <pre>services/
+├── api-gateway/       ← porta 3000 (entrada)
+├── auth-service/      ← porta 3001
+├── product-service/   ← porta 3002
+├── order-service/     ← porta 3003
+└── docker-compose.yml ← sobe todos</pre>
+        <div class="arch-tip"><strong>Regra prática:</strong> "Faça um monolito até doer." Só migre para microservices quando o monolito virar um problema real de escala ou equipe.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SOLID DO ZERO -->
+  <div style="margin-top:2.5rem">
+    <div class="eye r" style="margin-bottom:.4rem">// SOLID — OS 5 PRINCÍPIOS DO CÓDIGO PROFISSIONAL</div>
+    <h3 style="font-size:1.3rem;font-weight:700;margin-bottom:.5rem">O que é SOLID?</h3>
+    <p style="font-size:.87rem;color:var(--muted);line-height:1.7;max-width:700px;margin-bottom:1.5rem">SOLID são 5 princípios de design de código criados para tornar software <strong style="color:var(--text)">fácil de manter, estender e testar</strong>. Não são regras absolutas — são guias. Quando você sentir que adicionar uma feature nova quebra várias coisas, provavelmente está violando algum princípio SOLID.</p>
+    <div class="solid-grid">
+      <div class="solid-card">
+        <div class="solid-letter">S</div>
+        <h4>Single Responsibility</h4>
+        <p>Cada classe ou função deve ter <strong style="color:var(--text)">apenas uma razão para mudar</strong>. Se sua classe faz duas coisas, separe em duas classes.</p>
+        <div class="solid-ex">❌ Ruim: classe UserService que valida dados, salva no banco E envia email.<br>✅ Bom: UserService (salva), UserValidator (valida), EmailService (envia).</div>
+      </div>
+      <div class="solid-card">
+        <div class="solid-letter">O</div>
+        <h4>Open/Closed</h4>
+        <p>Aberto para <strong style="color:var(--text)">extensão</strong>, fechado para <strong style="color:var(--text)">modificação</strong>. Adicione funcionalidades sem modificar o código existente.</p>
+        <div class="solid-ex">❌ Ruim: if (tipo === 'email') { ... } else if (tipo === 'sms') { ... }<br>✅ Bom: cada notificação implementa interface Notificacao.enviar().</div>
+      </div>
+      <div class="solid-card">
+        <div class="solid-letter">L</div>
+        <h4>Liskov Substitution</h4>
+        <p>Uma <strong style="color:var(--text)">subclasse deve substituir</strong> a classe pai sem quebrar o comportamento esperado do programa.</p>
+        <div class="solid-ex">❌ Ruim: Pinguim extends Ave e lança erro no método voar().<br>✅ Bom: separar AvesVoadoras de AvesNaoVoadoras.</div>
+      </div>
+      <div class="solid-card">
+        <div class="solid-letter">I</div>
+        <h4>Interface Segregation</h4>
+        <p>Não force uma classe a implementar métodos que ela <strong style="color:var(--text)">não usa</strong>. Interfaces pequenas e específicas são melhores.</p>
+        <div class="solid-ex">❌ Ruim: interface Animal com voar(), nadar() e correr() para todos os animais.<br>✅ Bom: interfaces separadas: Voador, Nadador, Corredor.</div>
+      </div>
+      <div class="solid-card">
+        <div class="solid-letter">D</div>
+        <h4>Dependency Inversion</h4>
+        <p>Dependa de <strong style="color:var(--text)">abstrações</strong>, não de implementações concretas. Facilita troca de dependências e testes.</p>
+        <div class="solid-ex">❌ Ruim: UserService cria new PrismaRepository() diretamente.<br>✅ Bom: UserService recebe um repositório por parâmetro (injeção de dependência).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ibox o">
+    <strong>💡 Ordem de aprendizado:</strong> MVC primeiro (aplique nos projetos da Fase 4) → Feature-Based (aplique nos projetos maiores) → SOLID (aplique sempre, em qualquer código) → Clean Architecture (projetos sérios) → Microservices (quando o monolito doer).
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 06 DESAFIOS -->
+<div class="wrap" id="desafios">
+  <div class="eye p">// 06 — DESAFIOS</div>
+  <h2 class="sec-title">30+ Desafios de Lógica &amp; Algoritmos</h2>
+  <p class="sec-sub">Resolva pelo menos 1 por dia. Esses aparecem em vagas de emprego.</p>
+  <div class="slbl" style="color:var(--g)">// FÁCIL</div>
+  <div class="ch-grid" style="margin-bottom:2rem">
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>FizzBuzz</h3><p>1 a 100: múltiplos de 3 → "Fizz", de 5 → "Buzz", ambos → "FizzBuzz".</p><div class="tags"><span class="tag">loops</span><span class="tag">módulo</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Palíndromo</h3><p>"arara" → true. Funcione com frases ignorando espaços e case.</p><div class="tags"><span class="tag">string</span><span class="tag">array</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Fibonacci</h3><p>N-ésimo da sequência. Iterativo + recursivo com memoização.</p><div class="tags"><span class="tag">recursão</span><span class="tag">memo</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Anagrama</h3><p>"listen" e "silent" → true. Mesmas letras, ordem diferente.</p><div class="tags"><span class="tag">string</span><span class="tag">sort</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Maior e Menor</h3><p>Sem Math.min/Math.max. Apenas loop.</p><div class="tags"><span class="tag">array</span><span class="tag">loop</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Números Primos</h3><p>Todos os primos até N. Crivo de Eratóstenes para O(n log log n).</p><div class="tags"><span class="tag">matemática</span><span class="tag">algoritmo</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Inverter String</h3><p>Sem .reverse(). Depois inverta palavra por palavra.</p><div class="tags"><span class="tag">string</span><span class="tag">loop</span></div></div>
+    <div class="ch-card"><span class="lv lv-e">FÁCIL</span><h3>Contar Vogais</h3><p>Case-insensitive. Tente com loop e depois com regex.</p><div class="tags"><span class="tag">string</span><span class="tag">regex</span></div></div>
+  </div>
+  <div class="slbl" style="color:var(--o)">// MÉDIO</div>
+  <div class="ch-grid" style="margin-bottom:2rem">
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Two Sum</h3><p>O(n) com HashMap. Dois índices cujos valores somam target. LeetCode #1.</p><div class="tags"><span class="tag">hash map</span><span class="tag">O(n)</span><span class="tag">leetcode</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Flatten Deep</h3><p>Array de qualquer profundidade → plano. Sem .flat().</p><div class="tags"><span class="tag">recursão</span><span class="tag">array</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Debounce</h3><p>Do zero com closures. Muito cobrado em vagas front-end!</p><div class="tags"><span class="tag">closures</span><span class="tag">timer</span><span class="tag">vaga</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Deep Clone</h3><p>Sem JSON.parse/stringify. Lide com objetos, arrays e datas.</p><div class="tags"><span class="tag">objetos</span><span class="tag">recursão</span><span class="tag">vaga</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Merge Sort</h3><p>Do zero. O(n log n). Dividir para conquistar na prática.</p><div class="tags"><span class="tag">ordenação</span><span class="tag">recursão</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Promise.all Manual</h3><p>Sem usar o nativo. Resolve quando todas as Promises resolverem.</p><div class="tags"><span class="tag">promises</span><span class="tag">async</span><span class="tag">vaga</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Validar Parênteses</h3><p>(), [] e {} balanceados? Stack. LeetCode #20.</p><div class="tags"><span class="tag">stack</span><span class="tag">leetcode</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Curry Function</h3><p>curry(add)(1)(2)(3) === 6. Closures com qualquer nº de args.</p><div class="tags"><span class="tag">closures</span><span class="tag">higher-order</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Rate Limiter</h3><p>Máximo N execuções por segundo usando timestamps e closures.</p><div class="tags"><span class="tag">timer</span><span class="tag">closures</span></div></div>
+    <div class="ch-card"><span class="lv lv-m">MÉDIO</span><h3>Group By</h3><p>Agrupe elementos por critério. Implemente sem usar o nativo.</p><div class="tags"><span class="tag">array</span><span class="tag">reduce</span></div></div>
+  </div>
+  <div class="slbl" style="color:var(--p)">// DIFÍCIL — nível entrevista técnica</div>
+  <div class="ch-grid">
+    <div class="ch-card"><span class="lv lv-h">DIFÍCIL</span><h3>LRU Cache</h3><p>get e put em O(1). Clássico de FAANG. Doubly Linked List + HashMap.</p><div class="tags"><span class="tag">linked list</span><span class="tag">hash map</span><span class="tag">FAANG</span></div></div>
+    <div class="ch-card"><span class="lv lv-h">DIFÍCIL</span><h3>EventEmitter</h3><p>on, off, emit e once do zero. Igual ao do Node.js.</p><div class="tags"><span class="tag">OOP</span><span class="tag">observer</span></div></div>
+    <div class="ch-card"><span class="lv lv-h">DIFÍCIL</span><h3>BST Completa</h3><p>insert, search, delete e traversal in/pre/post-order.</p><div class="tags"><span class="tag">árvore</span><span class="tag">recursão</span></div></div>
+    <div class="ch-card"><span class="lv lv-h">DIFÍCIL</span><h3>Longest Substring</h3><p>Maior substring sem repetição. Sliding window. LeetCode #3.</p><div class="tags"><span class="tag">sliding window</span><span class="tag">hash set</span></div></div>
+    <div class="ch-card"><span class="lv lv-h">DIFÍCIL</span><h3>Trapping Rain Water</h3><p>Água presa entre barras. Dois ponteiros. LeetCode #42.</p><div class="tags"><span class="tag">dois ponteiros</span><span class="tag">O(n)</span></div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 07 PROJETOS -->
+<div class="wrap" id="projetos">
+  <div class="eye">// 07 — PROJETOS</div>
+  <h2 class="sec-title">Projetos Reais Para o GitHub</h2>
+  <p class="sec-sub">Faça um por vez. Cada projeto usa a arquitetura adequada. Qualidade &gt; quantidade.</p>
+  <div class="proj-grid">
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">🔐</div><h3>API de Autenticação</h3><div class="proj-lvl">Iniciante-Interm. · MVC</div></div><div class="proj-bot"><p>Cadastro, login, JWT, refresh token e validação com Zod.</p><div class="tech-row"><span class="tech">Express</span><span class="tech">JWT</span><span class="tech">Prisma</span><span class="tech">PostgreSQL</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">npm init + Express, bcrypt, jsonwebtoken, Prisma, Zod</li><li data-n="02.">Prisma: modelo User (id, email, passwordHash, role)</li><li data-n="03.">POST /register — hash bcrypt + validação Zod</li><li data-n="04.">POST /login — compare hash, gere access+refresh token</li><li data-n="05.">Middleware authMiddleware que valida JWT no header</li><li data-n="06.">GET /me protegida + POST /refresh + POST /logout</li><li data-n="07.">Dockerize: Compose com API + PostgreSQL</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">📝</div><h3>API To-Do Multi-usuário</h3><div class="proj-lvl">Iniciante · Feature-Based</div></div><div class="proj-bot"><p>CRUD de tarefas isolado por usuário, filtros e paginação.</p><div class="tech-row"><span class="tech">Express</span><span class="tech">MongoDB</span><span class="tech">JWT</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">Express + MongoDB (Mongoose) + features/auth + features/tasks</li><li data-n="02.">Task referencia userId — filtre SEMPRE pelo token</li><li data-n="03.">Query params: ?status=pending&page=1&limit=10</li><li data-n="04.">PATCH /tasks/:id/complete e /tasks/:id/reopen</li><li data-n="05.">3 testes de integração com Jest + Supertest</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">💬</div><h3>Chat em Tempo Real</h3><div class="proj-lvl">Intermediário · MVC + Eventos</div></div><div class="proj-bot"><p>Salas, Socket.io, auth JWT e histórico no MongoDB.</p><div class="tech-row"><span class="tech">Socket.io</span><span class="tech">React</span><span class="tech">MongoDB</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">Express + Socket.io no mesmo processo</li><li data-n="02.">Eventos: join-room, send-message, typing, disconnect</li><li data-n="03.">Salve msgs no MongoDB: room, author, content, createdAt</li><li data-n="04.">Ao entrar, envie as últimas 50 mensagens da sala</li><li data-n="05.">React + hook useSocket + indicador de digitando...</li><li data-n="06.">Auth JWT no handshake do Socket.io</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">🛒</div><h3>API E-commerce</h3><div class="proj-lvl">Intermediário · Clean Arch.</div></div><div class="proj-bot"><p>Produtos, carrinho, pedidos e estoque com Prisma.</p><div class="tech-row"><span class="tech">Prisma</span><span class="tech">PostgreSQL</span><span class="tech">Multer</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">Prisma: User, Product, Category, CartItem, Order</li><li data-n="02.">CRUD de produtos + upload de imagem com Multer</li><li data-n="03.">Carrinho: add, remove, update qty, limpar</li><li data-n="04.">POST /checkout: valide estoque + crie Order em transaction</li><li data-n="05.">Roles: USER compra, ADMIN gerencia produtos</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">🎵</div><h3>Player de Música Web</h3><div class="proj-lvl">Iniciante-Interm. · Component</div></div><div class="proj-bot"><p>Web Audio API, visualizador Canvas e playlist no React.</p><div class="tech-row"><span class="tech">Web Audio API</span><span class="tech">Canvas</span><span class="tech">React</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">Input MP3 → AudioContext via MediaElementSource</li><li data-n="02.">Play/pause/stop + barra de progresso</li><li data-n="03.">GainNode (volume) + StereoPannerNode (balanço)</li><li data-n="04.">AnalyserNode + Canvas: barras de frequência animadas</li><li data-n="05.">Playlist com prev/next e modo shuffle</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">🔗</div><h3>Encurtador de URLs</h3><div class="proj-lvl">Iniciante · MVC + Cache</div></div><div class="proj-bot"><p>Tipo bit.ly. Gera links, redireciona e conta cliques com Redis.</p><div class="tech-row"><span class="tech">Express</span><span class="tech">Redis</span><span class="tech">MongoDB</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">POST /shorten: URL → código de 6 chars com nanoid</li><li data-n="02.">GET /:code: busque no Redis primeiro, depois MongoDB</li><li data-n="03.">Incremente cliques e faça redirect 302</li><li data-n="04.">GET /stats/:code: cliques, data, URL original</li><li data-n="05.">Expiração: TTL de 30 dias no Redis e MongoDB</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">🤖</div><h3>Bot de Linha de Comando</h3><div class="proj-lvl">Iniciante · CLI App</div></div><div class="proj-bot"><p>CLI com API de IA no terminal, histórico salvo em JSON.</p><div class="tech-row"><span class="tech">Commander.js</span><span class="tech">Chalk</span><span class="tech">API REST</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">npm init + commander, chalk, node-fetch</li><li data-n="02.">Comandos: ask, history, clear</li><li data-n="03.">ask: chame a API e imprima resposta colorida</li><li data-n="04.">Histórico em ~/.meu-bot/history.json</li><li data-n="05.">Modo interativo com readline + streaming</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">📊</div><h3>Dashboard Analytics</h3><div class="proj-lvl">Intermediário · Full-Stack</div></div><div class="proj-bot"><p>Gráficos e KPIs em tempo real consumindo sua própria API.</p><div class="tech-row"><span class="tech">React</span><span class="tech">Chart.js</span><span class="tech">Node.js</span><span class="tech">PostgreSQL</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">API com GET /metrics — dados agregados por período</li><li data-n="02.">Script seed: 90 dias de dados fictícios com faker.js</li><li data-n="03.">React + Chart.js: LineChart, BarChart, Doughnut</li><li data-n="04.">Filtros: 7d, 30d, 90d + cards KPI</li><li data-n="05.">Polling a cada 30s + skeleton loader</li></ul></div></div>
+    <div class="proj-card"><div class="proj-top"><div class="proj-icon">📅</div><h3>Sistema de Agendamento</h3><div class="proj-lvl">Avançado · Feature-Based</div></div><div class="proj-bot"><p>Horários, conflitos, e-mail de confirmação e painel admin.</p><div class="tech-row"><span class="tech">Prisma</span><span class="tech">Nodemailer</span><span class="tech">Next.js</span></div><div class="steps-lbl">// Passo a passo</div><ul class="steps"><li data-n="01.">Prisma: User, Service, Appointment, TimeSlot</li><li data-n="02.">Disponibilidade: horários livres sem conflito</li><li data-n="03.">POST /appointments: sem sobreposição, sem passado</li><li data-n="04.">Nodemailer: e-mail de confirmação ao agendar</li><li data-n="05.">Next.js: selecione dia → horário → confirme</li><li data-n="06.">PATCH /cancel + painel admin</li></ul></div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 08 LIVROS -->
+<div class="wrap" id="livros">
+  <div class="eye p">// 08 — BIBLIOTECA</div>
+  <h2 class="sec-title">Livros &amp; E-books Essenciais</h2>
+  <p class="sec-sub">Vários são gratuitos. Sem desculpas para não ler.</p>
+  <div class="slbl" style="color:var(--g)">// JAVASCRIPT &amp; LÓGICA</div>
+  <div class="books-grid" style="margin-bottom:1.8rem">
+    <div class="book-card feat"><div class="spine g">📗</div><div class="binfo"><h4 style="color:var(--g)">Lógica de Prog. e Algoritmos com JS</h4><div class="bauthor">Edécio Fernando Iepsen — Novatec</div><div class="bdesc">O livro em PT mais didático para iniciantes em JS. Lógica, algoritmos e exercícios do zero. Leitura da Fase 1.</div><div class="blinks"><a class="bl rd" href="https://pdfcoffee.com/edecio-fernando-iepsen-pdf-free.html" target="_blank">📖 Ler Online</a><a class="bl rd" href="https://www.scribd.com/document/643370935/97f25fe3-a092-4a44-a319-e33a31cd4e1b" target="_blank">📖 Scribd</a><a class="bl paid" href="https://novatec.com.br/livros/logica-programacao-algoritmos-com-javascript-2ed/" target="_blank">🏪 Novatec</a><a class="bl gh" href="https://github.com/hugonbgg/livro-logica-de-programacao-e-algoritmos-com-javascript-novatec-2-edicao" target="_blank">💻 Exercícios</a></div></div></div>
+    <div class="book-card"><div class="spine">📘</div><div class="binfo"><h4>Eloquent JavaScript</h4><div class="bauthor">Marijn Haverbeke — 3ª ed.</div><div class="bdesc">O melhor livro gratuito de JS. Do básico ao avançado com exercícios práticos em cada capítulo.</div><div class="blinks"><a class="bl free" href="https://eloquentjavascript.net/Eloquent_JavaScript.pdf" target="_blank">⬇ PDF Grátis</a><a class="bl rd" href="https://eloquentjavascript.net/" target="_blank">🌐 Online</a><a class="bl gh" href="https://braziljs.github.io/eloquente-javascript/" target="_blank">🇧🇷 PT-BR</a></div></div></div>
+    <div class="book-card"><div class="spine">📙</div><div class="binfo"><h4>You Don't Know JS Yet</h4><div class="bauthor">Kyle Simpson — 6 volumes</div><div class="bdesc">A série mais completa sobre JS. Escopo, closures, this, prototypes e async. Tudo grátis no GitHub.</div><div class="blinks"><a class="bl gh" href="https://github.com/getify/You-Dont-Know-JS" target="_blank">📂 GitHub</a><a class="bl free" href="https://github.com/getify/You-Dont-Know-JS/blob/2nd-ed/get-started/README.md" target="_blank">📖 Começar</a></div></div></div>
+    <div class="book-card"><div class="spine">🧠</div><div class="binfo"><h4>Estruturas de Dados com JS</h4><div class="bauthor">Loiane Groner — Novatec</div><div class="bdesc">Guia completo em PT-BR. Stack, Queue, Linked List, Árvores, Grafos e algoritmos em JS. Fase 3.</div><div class="blinks"><a class="bl rd" href="https://pdfcoffee.com/estrutura-de-dados-e-algoritmos-com-javascript-pdf-free.html" target="_blank">📖 Online</a><a class="bl paid" href="https://novatec.com.br/livros/estruturas-de-dados-e-algoritmos-com-javascript/" target="_blank">🏪 Novatec</a></div></div></div>
+  </div>
+  <div class="slbl" style="color:var(--o)">// BACK-END &amp; BOAS PRÁTICAS</div>
+  <div class="books-grid">
+    <div class="book-card"><div class="spine">🔴</div><div class="binfo"><h4>Clean Code</h4><div class="bauthor">Robert C. Martin</div><div class="bdesc">O mais importante para escrever código profissional. Nomenclatura, funções, comentários e refatoração.</div><div class="blinks"><a class="bl gh" href="https://github.com/GoodBoyNeon/cheatsheets/blob/main/books/Clean%20Code%20by%20Robert%20C.%20Martin.pdf" target="_blank">📂 PDF GitHub</a><a class="bl paid" href="https://www.amazon.com.br/C%C3%B3digo-limpo-Robert-C-Martin/dp/8576082675" target="_blank">🛒 Amazon</a></div></div></div>
+    <div class="book-card"><div class="spine">🐳</div><div class="binfo"><h4>Docker Deep Dive</h4><div class="bauthor">Nigel Poulton</div><div class="bdesc">O mais acessível sobre Docker. Containers, imagens, volumes e Compose. Curto e direto.</div><div class="blinks"><a class="bl free" href="https://leanpub.com/dockerdeepdive" target="_blank">📖 Leanpub</a><a class="bl paid" href="https://www.amazon.com.br/Docker-Deep-Dive-Nigel-Poulton/dp/1916585256" target="_blank">🛒 Amazon</a></div></div></div>
+    <div class="book-card"><div class="spine">📐</div><div class="binfo"><h4>The Pragmatic Programmer</h4><div class="bauthor">Thomas &amp; Hunt</div><div class="bdesc">Um dos mais influentes da história do dev. Mentalidade, hábitos e técnicas profissionais.</div><div class="blinks"><a class="bl paid" href="https://www.amazon.com.br/Pragmatic-Programmer-Anniversary-Journey-Mastery/dp/0135957052" target="_blank">🛒 Amazon</a></div></div></div>
+    <div class="book-card"><div class="spine">⚡</div><div class="binfo"><h4>Designing Data-Intensive Apps</h4><div class="bauthor">Martin Kleppmann</div><div class="bdesc">O livro definitivo sobre banco de dados e sistemas escaláveis. Leia depois de dominar o básico.</div><div class="blinks"><a class="bl gh" href="https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications.pdf" target="_blank">📂 PDF GitHub</a><a class="bl paid" href="https://www.amazon.com.br/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321" target="_blank">🛒 Amazon</a></div></div></div>
+  </div>
+</div>
+
+<hr class="div">
+
+<hr class="div">
+
+<!-- ══════════════════════════════ 10 INGLÊS -->
+<div class="wrap" id="ingles">
+  <div class="eye p">// 09 — INGLÊS</div>
+  <h2 class="sec-title">Inglês Técnico Para Devs</h2>
+  <p class="sec-sub">Uma linha de estudo completa — do zero ao inglês de dev. 30–40 min por dia, todos os dias.</p>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem 1.7rem;margin-bottom:1.5rem">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--p);letter-spacing:.2em;margin-bottom:1.1rem">// LINHA DE ESTUDO COMPLETA — DO ZERO AO INGLÊS DE DEV</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.1rem">
+      <div style="background:var(--surf);border:1px solid rgba(0,232,122,.25);border-radius:10px;padding:1.1rem 1.3rem">
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--g);margin-bottom:.5rem">NÍVEL 1 — MESES 1-2 · Fundamentos</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.65">• Duolingo todo dia (10 min — cria o hábito)<br>• BBC Learning English: série "6 Minute English" — 3x/semana<br>• Aprenda os 100 verbos mais usados em inglês<br>• Mude o celular para inglês desde o dia 1<br>• Leia erros do terminal em inglês sem traduzir</div>
+        <div style="margin-top:.7rem;font-family:var(--mono);font-size:.56rem;color:var(--g)">Meta: entender 70% de textos simples</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:1.1rem 1.3rem">
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--b);margin-bottom:.5rem">NÍVEL 2 — MESES 3-4 · Leitura Técnica</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.65">• 1 artigo do DEV.to por dia (5 min)<br>• Ler documentações: MDN, Node.js, Express<br>• Anki com flashcards dos termos técnicos abaixo<br>• Todos os commits em inglês (Conventional Commits)<br>• README dos projetos em inglês</div>
+        <div style="margin-top:.7rem;font-family:var(--mono);font-size:.56rem;color:var(--b)">Meta: ler qualquer documentação técnica</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid rgba(255,112,67,.25);border-radius:10px;padding:1.1rem 1.3rem">
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--o);margin-bottom:.5rem">NÍVEL 3 — MESES 5-6 · Escuta</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.65">• Séries com legenda em inglês (não PT!)<br>• Fireship e Theo — 1 vídeo/semana<br>• Podcast Syntax.fm (inglês técnico casual)<br>• Shadowing: repita em voz alta o que ouve<br>• Tente entender 60% sem parar para traduzir</div>
+        <div style="margin-top:.7rem;font-family:var(--mono);font-size:.56rem;color:var(--o)">Meta: entender vídeos técnicos sem legenda</div>
+      </div>
+      <div style="background:var(--surf);border:1px solid rgba(139,111,255,.25);border-radius:10px;padding:1.1rem 1.3rem">
+        <div style="font-family:var(--mono);font-size:.6rem;color:var(--p);margin-bottom:.5rem">NÍVEL 4 — MÊS 7+ · Escrita e Fala</div>
+        <div style="font-size:.77rem;color:var(--muted);line-height:1.65">• Escrever posts no DEV.to em inglês<br>• Tandem: conversar com nativos (grátis)<br>• Comentar em issues do GitHub em inglês<br>• Responder no Stack Overflow em inglês<br>• Candidatar para vagas internacionais</div>
+        <div style="margin-top:.7rem;font-family:var(--mono);font-size:.56rem;color:var(--p)">Meta: comunicar no trabalho em inglês</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROTINA DE INGLÊS NA TARDE -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.7rem;margin-bottom:1.5rem">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--p);letter-spacing:.2em;margin-bottom:1rem">// ENCAIXE NA SUA ROTINA DAS 13H30-17H</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.85rem">
+      <div style="background:var(--surf);border-left:2px solid var(--g);border-radius:0 8px 8px 0;padding:.8rem 1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--g);margin-bottom:.25rem">TODO DIA — 10 min (qualquer hora)</div>
+        <div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">Duolingo</div>
+        <div style="font-size:.72rem;color:var(--muted)">Não pule nenhum dia. Consistência cria fluência.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--b);border-radius:0 8px 8px 0;padding:.8rem 1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--b);margin-bottom:.25rem">TERÇA — 16h20 (40 min)</div>
+        <div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">Leitura técnica — MDN</div>
+        <div style="font-size:.72rem;color:var(--muted)">1 página da MDN em inglês. Anote 5 termos novos.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--p);border-radius:0 8px 8px 0;padding:.8rem 1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--p);margin-bottom:.25rem">QUARTA — 16h15 (45 min)</div>
+        <div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">Inglês escolar + DEV.to</div>
+        <div style="font-size:.72rem;color:var(--muted)">30 min escola + 15 min artigo no dev.to.</div>
+      </div>
+      <div style="background:var(--surf);border-left:2px solid var(--o);border-radius:0 8px 8px 0;padding:.8rem 1rem">
+        <div style="font-family:var(--mono);font-size:.58rem;color:var(--o);margin-bottom:.25rem">TODO COMMIT</div>
+        <div style="font-size:.8rem;font-weight:600;margin-bottom:.2rem">Commits em inglês</div>
+        <div style="font-size:.72rem;color:var(--muted)">Cada commit: inglês + Conventional Commits. Hábito que vira fluência.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOCABULÁRIO -->
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.7rem;margin-bottom:1.5rem">
+    <div style="font-family:var(--mono);font-size:.6rem;color:var(--p);letter-spacing:.2em;margin-bottom:1rem">// VOCABULÁRIO TÉCNICO — ESTUDE ESSES PRIMEIRO (USE NO ANKI)</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.55rem"><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">array</span><span style="font-size:.7rem;color:var(--muted)">lista / arranjo</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">loop</span><span style="font-size:.7rem;color:var(--muted)">laço de repetição</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">scope</span><span style="font-size:.7rem;color:var(--muted)">escopo</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">callback</span><span style="font-size:.7rem;color:var(--muted)">função de retorno</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">bug</span><span style="font-size:.7rem;color:var(--muted)">erro / falha</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">debug</span><span style="font-size:.7rem;color:var(--muted)">depurar</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">deploy</span><span style="font-size:.7rem;color:var(--muted)">implantar</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">merge</span><span style="font-size:.7rem;color:var(--muted)">mesclar</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">refactor</span><span style="font-size:.7rem;color:var(--muted)">refatorar</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">dependency</span><span style="font-size:.7rem;color:var(--muted)">dependência</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">endpoint</span><span style="font-size:.7rem;color:var(--muted)">rota da API</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">payload</span><span style="font-size:.7rem;color:var(--muted)">dados da req.</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">middleware</span><span style="font-size:.7rem;color:var(--muted)">intermediário</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">environment</span><span style="font-size:.7rem;color:var(--muted)">ambiente</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">deprecated</span><span style="font-size:.7rem;color:var(--muted)">descontinuado</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">breaking change</span><span style="font-size:.7rem;color:var(--muted)">mudança incompatível</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">boilerplate</span><span style="font-size:.7rem;color:var(--muted)">código inicial</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">inheritance</span><span style="font-size:.7rem;color:var(--muted)">herança</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">encapsulation</span><span style="font-size:.7rem;color:var(--muted)">encapsulamento</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">polymorphism</span><span style="font-size:.7rem;color:var(--muted)">polimorfismo</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">instance</span><span style="font-size:.7rem;color:var(--muted)">instância</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">interface</span><span style="font-size:.7rem;color:var(--muted)">interface/contrato</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">race condition</span><span style="font-size:.7rem;color:var(--muted)">condição de corrida</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">throughput</span><span style="font-size:.7rem;color:var(--muted)">taxa de processamento</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">latency</span><span style="font-size:.7rem;color:var(--muted)">latência</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">idempotent</span><span style="font-size:.7rem;color:var(--muted)">idempotente</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">stateless</span><span style="font-size:.7rem;color:var(--muted)">sem estado</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">cache</span><span style="font-size:.7rem;color:var(--muted)">armazenamento temporário</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">token</span><span style="font-size:.7rem;color:var(--muted)">token/chave</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">hash</span><span style="font-size:.7rem;color:var(--muted)">resumo criptográfico</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">schema</span><span style="font-size:.7rem;color:var(--muted)">esquema de dados</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">migration</span><span style="font-size:.7rem;color:var(--muted)">migração</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">seed</span><span style="font-size:.7rem;color:var(--muted)">popular com dados</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">query</span><span style="font-size:.7rem;color:var(--muted)">consulta</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">index</span><span style="font-size:.7rem;color:var(--muted)">índice</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">transaction</span><span style="font-size:.7rem;color:var(--muted)">transação</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">rollback</span><span style="font-size:.7rem;color:var(--muted)">reverter</span></div><div style="background:var(--surf);border:1px solid var(--border);border-radius:5px;padding:.5rem .75rem;display:flex;justify-content:space-between"><span style="font-family:var(--mono);font-size:.7rem;color:var(--g)">abstraction</span><span style="font-size:.7rem;color:var(--muted)">abstração</span></div>
+    </div>
+  </div>
+
+  <!-- RECURSOS -->
+  <div class="ing-grid">
+    <div class="ing-card"><h4>📺 BBC Learning English</h4><p>"6 Minute English" — 3x por semana. Com transcrição. Nível 1.</p><div class="blinks"><a class="bl free" href="https://youtube.com/@bbclearningenglish" target="_blank">YouTube</a></div></div>
+    <div class="ing-card"><h4>📱 Duolingo</h4><p>10 min/dia todos os dias. Cria o hábito linguístico.</p><div class="blinks"><a class="bl free" href="https://duolingo.com" target="_blank">App Grátis</a></div></div>
+    <div class="ing-card"><h4>🗃️ Anki</h4><p>Flashcards com espaçamento repetido. Melhor para vocabulário técnico.</p><div class="blinks"><a class="bl free" href="https://apps.ankiweb.net" target="_blank">Grátis</a></div></div>
+    <div class="ing-card"><h4>🗣️ Tandem</h4><p>Pratique conversação com nativos. Você ensina PT, eles ensinam EN.</p><div class="blinks"><a class="bl free" href="https://tandem.net" target="_blank">App Grátis</a></div></div>
+    <div class="ing-card"><h4>📺 Fireship</h4><p>Vídeos técnicos de 100s a 12 min. Inglês moderno e real.</p><div class="blinks"><a class="bl free" href="https://youtube.com/@fireship" target="_blank">YouTube</a></div></div>
+    <div class="ing-card"><h4>🎙️ Syntax.fm</h4><p>Podcast de devs. Inglês técnico casual. Nível 3.</p><div class="blinks"><a class="bl free" href="https://syntax.fm" target="_blank">syntax.fm</a></div></div>
+    <div class="ing-card"><h4>📰 DEV.to</h4><p>Artigos técnicos curtos de devs reais. 1 por dia.</p><div class="blinks"><a class="bl free" href="https://dev.to" target="_blank">dev.to</a></div></div>
+    <div class="ing-card"><h4>📖 English Grammar in Use</h4><p>O livro de gramática mais famoso do mundo. Tem PDF circulando.</p><div class="blinks"><a class="bl gh" href="https://github.com/search?q=english+grammar+in+use+pdf&type=repositories" target="_blank">Buscar PDF</a></div></div>
+  </div>
+
+  <div class="pdf-strip p" style="margin-top:1.4rem;border-radius:10px;border:1px dashed rgba(139,111,255,.25)">
+    <span class="pdf-lbl">📄 Apostila de Inglês — vocabulário, erros do terminal, commits e template README</span>
+    <a class="pdf-btn" href="fase6-ingles-tecnico.pdf" download>⬇ Baixar PDF</a>
+  </div>
+</div>
+
+<hr class="div">
+
+<!-- MENTALIDADE -->
+<div class="wrap">
+  <div class="eye">// 11 — MENTALIDADE</div>
+  <h2 class="sec-title">Regras Para Crescer de Verdade</h2>
+  <p class="sec-sub">O código é a parte fácil. A mentalidade é o que separa quem chega lá de quem desiste.</p>
+  <div class="mental-grid">
+    <div class="mental-card"><div class="mental-n">// REGRA #1</div><h4>Construa. Não só assista.</h4><p>Para cada 30 min de vídeo → 1h codando. Tutorial sem prática não ensina nada.</p></div>
+    <div class="mental-card"><div class="mental-n">// REGRA #2</div><h4>GitHub todo dia.</h4><p>Mesmo que seja 1 linha. Seu histórico de commits é seu portfólio real.</p></div>
+    <div class="mental-card"><div class="mental-n">// REGRA #3</div><h4>Leia código de outros.</h4><p>Abra projetos open source e leia. Aprende o que nenhum tutorial ensina.</p></div>
+    <div class="mental-card"><div class="mental-n">// REGRA #4</div><h4>Inglês desde agora.</h4><p>Leia a MDN em inglês hoje. 90% dos melhores recursos são em inglês.</p></div>
+    <div class="mental-card"><div class="mental-n">// REGRA #5</div><h4>Bug é parte do trabalho.</h4><p>Leia o erro, pesquise, entenda — não só copie a solução. É assim que se aprende.</p></div>
+    <div class="mental-card"><div class="mental-n">// REGRA #6</div><h4>Consistência vence maratona.</h4><p>1 hora por dia todo dia vale mais que 8h no fim de semana. Apareça todo dia.</p></div>
+  </div>
+</div>
+
+<div class="footer">Feito pra você ir longe. <span>// Bora codar 🚀</span></div>
+
+<script>
+function toggle(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
