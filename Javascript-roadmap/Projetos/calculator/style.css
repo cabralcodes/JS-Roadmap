@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: top;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+.titleBox {
+    text-align: center;
+}
+.calculatorBox {
+    background-color: cornflowerblue;
+    padding: 20px;
+}
+.result{
+    padding: 20px;
+    background-color: antiquewhite;
+    border-radius: 4px;
+    margin-bottom: 3px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttons button {
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+}
