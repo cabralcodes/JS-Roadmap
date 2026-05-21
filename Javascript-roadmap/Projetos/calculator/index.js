@@ -11,7 +11,13 @@ button.forEach(function(botoes){
             Visor.innerText = eval(conta);
             //conta = Visor.innerText;
             console.log(Visor);
-        }else {
+        } 
+        else if(this.value === "del") {
+            conta = "";
+            Visor.innerText = conta;
+        }
+    
+        else {
             conta+=  this.value;
             Visor.innerText = conta;
             Visor.innerText = conta.replace("*", "x");
